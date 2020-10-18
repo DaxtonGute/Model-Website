@@ -29,7 +29,6 @@ function CPSTester(){
     countDown = numSec;
     alreadyTriggered = true;
     interval = window.setInterval(updateTimer, 10);
-    alreadyTriggered = false;
   }
 }
 function updateTimer(){
@@ -38,8 +37,14 @@ function updateTimer(){
     document.getElementById('timeLeft').innerHTML = "Time Left: " + countDown + " Seconds";
   }else{
     clearInterval(interval);
+    alreadyTriggered = false;
     document.getElementById("Results").style.display = "block";
     document.getElementById('CPS').innerHTML = "CPS: " + (numClicks/numSec) + " clicks per second";
+    if((numClicks/numSec) > bestCPS){
+      bestCPS = (numClicks/numSec);
+    }else{
+      document.getElementById('highScore').innerHTML = "You are off your score by " + (bestCPS - (numClicks/numSec)) + " cps"
+    }
     countDown = numSec;
     numClicks = 0;
   }
