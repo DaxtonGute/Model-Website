@@ -1,5 +1,5 @@
 var toggled = false;
-
+//Switching Menus
 function toggleMenuSwitch() {
   if(toggled){
     document.getElementById('DDM').style.display = "none";
@@ -14,7 +14,9 @@ function toggleMenuSwitch() {
 }
 
 
+//clicker
 var numSec = 5.00;
+var countDown;
 var numClicks = 0;
 var alreadyTriggered = false;
 var bestCPS = 0;
@@ -24,18 +26,21 @@ function CPSTester(){
   numClicks ++;
   document.getElementById('clicks').innerHTML = "Clicks: " + numClicks + " clicks";
   if(!alreadyTriggered){
+    countDown = numSec;
     alreadyTriggered = true;
     interval = window.setInterval(updateTimer, 10);
     alreadyTriggered = false;
   }
 }
 function updateTimer(){
-  if(numSec != 0){
-    numSec = (Math.round((numSec - 0.01)*100))/100;
-    document.getElementById('timeLeft').innerHTML = "Time Left: " + numSec + " Seconds";
+  if(countDown != 0){
+    countDown = (Math.round((countDown - 0.01)*100))/100;
+    document.getElementById('timeLeft').innerHTML = "Time Left: " + countDown + " Seconds";
   }else{
     clearInterval(interval);
-    document.getElementById("Results").style.display = "block";;
+    document.getElementById("Results").style.display = "block";
+    document.getElementById('CPS').innerHTML = "CPS: " + (numClicks/numSec) + " clicks per second";
+    countDown = numSec;
     numClicks = 0;
   }
 }
@@ -80,7 +85,14 @@ function universalReset(seconds){
   }
   numSec = seconds;
   numClicks = 0;
+  document.getElementById('clicks').innerHTML = "Clicks: 0 clicks";
   clearInterval(interval);
   document.getElementById('buttonClicker').innerHTML = "After you click here you will be given " + seconds + " seconds of clicking as fast as you can";
   document.getElementById('timeLeft').innerHTML = "Time Left: " + seconds + ".00 Seconds";
+}
+//closing the modal
+function closeModal(){
+  document.getElementById("Results").style.display = "none";
+  document.getElementById('timeLeft').innerHTML = "Time Left: " + countDown + " Seconds";
+  document.getElementById('clicks').innerHTML = "Clicks: " + numClicks + " clicks";
 }
