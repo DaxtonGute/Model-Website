@@ -17,22 +17,25 @@ function toggleMenuSwitch() {
 var numSec = 5.00;
 var numClicks = 0;
 var alreadyTriggered = false;
+var interval;
 
 function CPSTester(){
   numClicks ++;
   document.getElementById('clicks').innerHTML = "Clicks: " + numClicks + " clicks";
   if(!alreadyTriggered){
     alreadyTriggered = true;
-    window.setInterval(updateTimer, 10);
-    clearInterval(interval);
+    interval = window.setInterval(updateTimer, 10);
     alreadyTriggered = false;
   }
-
 }
-
 function updateTimer(){
-  numSec = (Math.round((numSec - 0.01)*100))/100;
-  document.getElementById('timeLeft').innerHTML = "Time Left: " + numSec + " Seconds";
+  if(numSec != 0){
+    numSec = (Math.round((numSec - 0.01)*100))/100;
+    document.getElementById('timeLeft').innerHTML = "Time Left: " + numSec + " Seconds";
+  }else{
+    clearInterval(interval);
+    numClicks = 0;
+  }
 }
 //surely there is better way
 function toOneSec(){
