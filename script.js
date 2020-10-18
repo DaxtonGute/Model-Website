@@ -17,6 +17,7 @@ function toggleMenuSwitch() {
 var numSec = 5.00;
 var numClicks = 0;
 var alreadyTriggered = false;
+var bestCPS = 0;
 var interval;
 
 function CPSTester(){
@@ -34,73 +35,52 @@ function updateTimer(){
     document.getElementById('timeLeft').innerHTML = "Time Left: " + numSec + " Seconds";
   }else{
     clearInterval(interval);
+    document.getElementById("Results").style.display = "block";;
     numClicks = 0;
   }
 }
 //surely there is better way
 function toOneSec(){
-  document.getElementById('oneSec').className = "btn btn-primary active";
-  document.getElementById('threeSec').className = "btn btn-primary";
-  document.getElementById('fiveSec').className = "btn btn-primary";
-  document.getElementById('tenSec').className = "btn btn-primary";
-  document.getElementById('twentySec').className = "btn btn-primary";
-  document.getElementById('hundredSec').className = "btn btn-primary";
-  numSec = 1;
-  document.getElementById('buttonClicker').innerHTML = "After you click here you will be given 1 seconds of clicking as fast as you can";
-  document.getElementById('timeLeft').innerHTML = "Time Left: 1.00 Seconds";
+  universalReset(1);
 }
 function toThreeSec(){
-  document.getElementById('oneSec').className = "btn btn-primary";
-  document.getElementById('threeSec').className = "btn btn-primary active";
-  document.getElementById('fiveSec').className = "btn btn-primary";
-  document.getElementById('tenSec').className = "btn btn-primary";
-  document.getElementById('twentySec').className = "btn btn-primary";
-  document.getElementById('hundredSec').className = "btn btn-primary";
-  numSec = 3;
-  document.getElementById('buttonClicker').innerHTML = "After you click here you will be given 3 seconds of clicking as fast as you can";
-  document.getElementById('timeLeft').innerHTML = "Time Left: 3.00 Seconds";
+  universalReset(3);
 }
 function toFiveSec(){
-  document.getElementById('oneSec').className = "btn btn-primary";
-  document.getElementById('threeSec').className = "btn btn-primary";
-  document.getElementById('fiveSec').className = "btn btn-primary active";
-  document.getElementById('tenSec').className = "btn btn-primary";
-  document.getElementById('twentySec').className = "btn btn-primary";
-  document.getElementById('hundredSec').className = "btn btn-primary";
-  numSec = 5;
-  document.getElementById('buttonClicker').innerHTML = "After you click here you will be given 5 seconds of clicking as fast as you can";
-  document.getElementById('timeLeft').innerHTML = "Time Left: 5.00 Seconds";
+  universalReset(5);
 }
 function toTenSec(){
-  document.getElementById('oneSec').className = "btn btn-primary";
-  document.getElementById('threeSec').className = "btn btn-primary";
-  document.getElementById('fiveSec').className = "btn btn-primary";
-  document.getElementById('tenSec').className = "btn btn-primary active";
-  document.getElementById('twentySec').className = "btn btn-primary";
-  document.getElementById('hundredSec').className = "btn btn-primary";
-  numSec = 10;
-  document.getElementById('buttonClicker').innerHTML = "After you click here you will be given 10 seconds of clicking as fast as you can";
-  document.getElementById('timeLeft').innerHTML = "Time Left: 10.00 Seconds";
+  universalReset(10);
 }
 function toTwentySec(){
-  document.getElementById('oneSec').className = "btn btn-primary";
-  document.getElementById('threeSec').className = "btn btn-primary";
-  document.getElementById('fiveSec').className = "btn btn-primary";
-  document.getElementById('tenSec').className = "btn btn-primary";
-  document.getElementById('twentySec').className = "btn btn-primary active";
-  document.getElementById('hundredSec').className = "btn btn-primary";
-  numSec = 20;
-  document.getElementById('buttonClicker').innerHTML = "After you click here you will be given 20 seconds of clicking as fast as you can";
-  document.getElementById('timeLeft').innerHTML = "Time Left: 20.00 Seconds";
+  universalReset(20);
 }
 function toHundredSec(){
+  universalReset(100);
+}
+function universalReset(seconds){
   document.getElementById('oneSec').className = "btn btn-primary";
   document.getElementById('threeSec').className = "btn btn-primary";
   document.getElementById('fiveSec').className = "btn btn-primary";
   document.getElementById('tenSec').className = "btn btn-primary";
   document.getElementById('twentySec').className = "btn btn-primary";
-  document.getElementById('hundredSec').className = "btn btn-primary active";
-  numSec = 100;
-  document.getElementById('buttonClicker').innerHTML = "After you click here you will be given 100 seconds of clicking as fast as you can";
-  document.getElementById('timeLeft').innerHTML = "Time Left: 100.00 Seconds";
+  document.getElementById('hundredSec').className = "btn btn-primary";
+  if(seconds == 1){
+    document.getElementById('oneSec').className = "btn btn-primary active";
+  }else if(seconds == 3){
+    document.getElementById('threeSec').className = "btn btn-primary active";
+  }else if(seconds == 5){
+    document.getElementById('fiveSec').className = "btn btn-primary active";
+  }else if(seconds == 10){
+    document.getElementById('tenSec').className = "btn btn-primary active";
+  }else if(seconds == 20){
+    document.getElementById('twentySec').className = "btn btn-primary active";
+  }else if(seconds == 100){
+    document.getElementById('hundredSec').className = "btn btn-primary active";
+  }
+  numSec = seconds;
+  numClicks = 0;
+  clearInterval(interval);
+  document.getElementById('buttonClicker').innerHTML = "After you click here you will be given " + seconds + " seconds of clicking as fast as you can";
+  document.getElementById('timeLeft').innerHTML = "Time Left: " + seconds + ".00 Seconds";
 }

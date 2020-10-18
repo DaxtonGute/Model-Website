@@ -49,8 +49,23 @@
       </div>
       <h3 id="timeLeft"> Time Left: 5.00 Seconds </h3>
       <h3 id="clicks"> Clicks: 0 clicks</h3>
-      <h3 id="CPS"> CPS: 0 clicks per second </h3>
       <button id="buttonClicker" onclick="CPSTester();" type="button" style="height: 300px; border-radius: 60px" class="btn btn-primary btn-block">After you click here you will be given 5 seconds of clicking as fast as you can</button>
+
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"> Open modal </button>
+
+      <div class="modal" id="Results">
+        <div class="modal-dialog">
+          <div class="modal-content">
+          <div class="modal-header">
+            <h3 id="CPS"> CPS: 0 clicks per second </h3>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            Modal body..
+          </div>
+        </div>
+       </div>
+      </div>
     </div>
 
     <!-- footer -->
