@@ -31,50 +31,27 @@
           <a href="KidByKid.html" class="list-group-item">KidByKid</a>
           <a href="uglyWebsite.html" class="list-group-item">Ugly Website</a>
           <a href="battleship.html" class="list-group-item">Battleship</a>
-          <a href="games.html" class="list-group-item">Games</a>
+          <a href="#" class="list-group-item active">Games</a>
         </div>
       </div>
     </div>
 
-    <!-- caution text -->
-    <div class="jumbotron">
-      <h1><span class="badge badge-warning">Caution</span> Site under construction! </h1>
-      <p>A new release will be coming soon! If you don't see the features you would like to see here, go ahead and fill out the below form</p>
+    <!-- Cookie Clicker -->
+    <div class="container-fluid bg-success">
+      <h1> CPS Tester </h1>
+      <div class="btn-group btn-block">
+        <button id="oneSec" type="button" onclick="toOneSec();" class="btn btn-primary">1 sec</button>
+        <button id="threeSec" type="button" onclick="toThreeSec();" class="btn btn-primary">3 sec</button>
+        <button id="fiveSec" type="button" onclick="toFiveSec();" class="btn btn-primary active">5 sec</button>
+        <button id="tenSec" type="button" onclick="toTenSec();" class="btn btn-primary">10 sec</button>
+        <button id="twentySec" type="button" onclick="toTwentySec();" class="btn btn-primary">20 sec</button>
+        <button id="hundredSec" type="button" onclick="toHundredSec();" class="btn btn-primary">100 sec</button>
+      </div>
+      <h3 id="timeLeft"> Time Left: 5 Seconds </h3>
+      <h3 id="clicks"> Clicks: 0 clicks</h3>
+      <h3 id="CPS"> CPS: 0 clicks per second </h3>
+      <button id="buttonClicker" onclick="CPSTester();" type="button" style="height: 300px; border-radius: 60px" class="btn btn-primary btn-block">After you click here you will be given 5 seconds of clicking as fast as you can</button>
     </div>
-
-    <!-- sample text -->
-    <div class="container">
-      <h1> Its Me! </h1>
-      <h2> This is supposed to be a main page. </h2>
-      <h3> But, not quite (I am literally not creative enough): I welcome your feedback. </h3>
-      <h4> The other pages work though! Specifically go from Battleship to KidByKid and finally UglyWebsite. Check them out in this order: </h4>
-      <div class="row">
-        <div class="col-sm-12 col-md-6 col-lg-4"> 1. Battleship </div>
-        <div class="col-sm-12 col-md-6 col-lg-4"> 2. KidByKid </div>
-        <div class="col-sm-12 col-md-6 col-lg-4"> 3. UglyWebsite </div>
-      </div>
-      <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms" src="https://giphy.com/embed/h8lH6itZv19SEGhf5A" scrolling="no" style= "border:0px"></iframe>
-    </div>
-
-    <!-- useless query section -->
-    <div class="container">
-      <div id="didNothing" class="collapse">
-        <div class="alert alert-success">
-          <strong>Congrats!</strong> you did nothing, I haven't implemented this.
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Name:</label>
-        <input class="form-control" placeholder="Enter name" id="email">
-      </div>
-      <div class="form-group">
-        <label>Complaint:</label>
-        <input class="form-control" placeholder="Enter complaint" id="pwd">
-      </div>
-      <button type="submit" class="btn btn-primary" data-toggle="collapse" data-target="#didNothing" style="margin-bottom:10px">Submit</button>
-      </form>
-    </div>
-
 
     <!-- footer -->
     <footer class="page-footer font-small bg-info">
