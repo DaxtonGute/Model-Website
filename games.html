@@ -68,16 +68,16 @@
 
     <!-- Name Picker -->
     <div class="container-fluid" style="padding-bottom: 50px; background-color: pink">
-      <h2> Bootstrap Color Picker </h2>
-      <div class="btn-group btn-block" data-toggle="buttons">
+      <h2 style="padding-top: 10px"> Bootstrap Color Picker </h2>
+      <div class="btn-group btn-block" data-toggle="buttons" style="padding-bottom:50px">
         <button class="btn btn-outline-danger" data-toggle="collapse" data-target="#Red"> Danger </button>
-        <button class="btn btn-outline-warning text-dark"> Warning </button>
-        <button class="btn btn-outline-success"> Success </button>
-        <button class="btn btn-outline-info"> Info </button>
-        <button class="btn btn-outline-primary"> Primary </button>
-        <button class="btn btn-outline-secondary"> Secondary </button>
-        <button class="btn btn-outline-dark"> Dark </button>
-        <button class="btn btn-outline-light"> Light </button>
+        <button class="btn btn-outline-warning text-dark" data-toggle="collapse" data-target="#Orange"> Warning </button>
+        <button class="btn btn-outline-success" data-toggle="collapse" data-target="#Green"> Success </button>
+        <button class="btn btn-outline-info" data-toggle="collapse" data-target="#Turquoise"> Info </button>
+        <button class="btn btn-outline-primary" data-toggle="collapse" data-target="#Blue"> Primary </button>
+        <button class="btn btn-outline-secondary" data-toggle="collapse" data-target="#Grey"> Secondary </button>
+        <button class="btn btn-outline-dark" data-toggle="collapse" data-target="#Black"> Dark </button>
+        <button class="btn btn-outline-light" data-toggle="collapse" data-target="#White"> Light </button>
       </div>
       <div class="row">
         <div class="col-sm-8">
@@ -93,9 +93,21 @@
           <div id="Turquoise" class="collapse alert alert-info">
             Info
           </div>
+          <div id="Blue" class="collapse alert alert-primary">
+            Primary
+          </div>
+          <div id="Grey" class="collapse alert alert-secondary">
+            Secondary
+          </div>
+          <div id="Black" class="collapse alert alert-dark">
+            Dark
+          </div>
+          <div id="White" class="collapse alert alert-light">
+            Light
+          </div>
         </div>
         <div class="col-sm-4">
-          <button class="btn btn-danger"> SPIN </button>
+          <button class="btn btn-danger btn-block" onclick="doTheSpin();"> SPIN </button>
         </div>
       </div>
     </div>
