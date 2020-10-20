@@ -6,7 +6,9 @@ var originalColors = [];
 var text = []
 var originalText = [];
 var pickedColor = "";
-var interval;
+var intervalOne;
+var intervalTwo;
+var intervalThree;
 function doTheSpin(){
   if (colors.length == 0){
     if(document.getElementById("danger-button").classList.contains("active")){
@@ -58,9 +60,25 @@ function doTheSpin(){
       originalText.push("light");
     }
   }
-  pickedColor = colors[Math.floor(Math.random() * colors.length)];
-  interval = setInterval(movePositions(), 1000);
-  setTimeout(clearInterval(interval), 2000*(colors.length));
+  intervalOne = setInterval("movePositions()", 50);
+  var random = Math.random();
+  setTimeout("clearInterval(intervalOne)", 3000*random);
+  setTimeout("secondInterval()", 3000*random);
+}
+function secondInterval(){
+  intervalTwo = setInterval("movePositions()", 100);
+  var random = Math.random();
+  setTimeout("clearInterval(intervalTwo)", 3000*random);
+  setTimeout("thirdInterval()", 3000*random);
+}
+function thirdInterval(){
+  intervalThree = setInterval("movePositions()", 200);
+  var random = Math.random();
+  setTimeout("clearInterval(intervalThree);", 3000*random);
+  setTimeout("displayResults();", 3000*random);
+}
+function displayResults(){
+  document.getElementById("colorResult").innerHTML = "Color: " + colors[0];
 }
 var tempClass;
 var tempText;
@@ -88,4 +106,6 @@ function reset(){
   colors = [];
   originalColors = [];
   text = [];
+  originalText =[];
+  document.getElementById("colorResult").innerHTML = "Color: ";
 }
