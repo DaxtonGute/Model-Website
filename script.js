@@ -101,3 +101,60 @@ function closeModal(){
   document.getElementById('timeLeft').innerHTML = "Time Left: " + countDown + " Seconds";
   document.getElementById('clicks').innerHTML = "Clicks: " + numClicks + " clicks";
 }
+
+
+//spinner
+var timer = 10;
+var colors = [];
+var originalColors = [];
+var pickedColor = "";
+var timeout;
+function doTheSpin(){
+  if (colors.length == 0){
+    if(document.getElementById("danger-button").classList.contains("active")){
+      colors.push("danger");
+      originalColors.push("danger");
+    }
+    if(document.getElementById("warning-button").classList.contains("active")){
+      colors.push("warning");
+      originalColors.push("warning");
+    }
+    if(document.getElementById("success-button").classList.contains("active")){
+      colors.push("success");
+      originalColors.push("success");
+    }
+    if(document.getElementById("info-button").classList.contains("active")){
+      colors.push("info");
+      originalColors.push("info");
+    }
+    if(document.getElementById("primary-button").classList.contains("active")){
+      colors.push("primary");
+      originalColors.push("primary");
+    }
+    if(document.getElementById("secondary-button").classList.contains("active")){
+      colors.push("secondary");
+      originalColors.push("secondary");
+    }
+    if(document.getElementById("dark-button").classList.contains("active")){
+      colors.push("dark");
+      originalColors.push("dark");
+    }
+    if(document.getElementById("light-button").classList.contains("active")){
+      colors.push("light");
+      originalColors.push("light");
+    }
+  }
+  pickedColor = colors[Math.floor(Math.random() * colors.length)];
+  timeout = setTimeout(movePositions(), 10);
+}
+var tempClass;
+function movePositions(){
+  tempClass = document.getElementById(originalColors[0]).classList + "";
+  for (var i = 1; i < colors.length; i++) {
+    document.getElementById(originalColors[i-1]).classList.remove("alert-"+colors[i-1]);
+    document.getElementById(originalColors[i-1]).classList.add("alert-"+colors[i]);
+  }
+  document.getElementById(originalColors[colors.length-1]).classList = tempClass;
+  var shiftedColor = colors.shift();//before: [red,warning,success,primary]
+  colors.push(shiftedColor);//after: [orange,success,primary,red]
+}
