@@ -158,3 +158,7 @@ function movePositions(){
   var shiftedColor = colors.shift();//before: [red,warning,success,primary]
   colors.push(shiftedColor);//after: [orange,success,primary,red]
 }
+function reset(){
+  colors = [];
+  originalColors = [];
+}
