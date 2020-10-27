@@ -43,7 +43,6 @@ function displayResults(){
       numCorrect += 1;
     }
   }
-  alert("" + numCorrect);
   document.getElementById("Correctness").innerHTML = "Percent Correct: " + (numCorrect/chosenPhrase.length)*100 + "%";
   document.getElementById("WPM").innerHTML = "WPM: " + chosenPhrase.length/timer;
 }
