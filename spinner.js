@@ -10,6 +10,7 @@ var intervalOne;
 var intervalTwo;
 var intervalThree;
 function doTheSpin(){
+  document.getElementById("spinner_button").disabled = true;
   if (colors.length == 0){
     if(document.getElementById("danger-button").classList.contains("active")){
       colors.push("danger");
@@ -79,6 +80,7 @@ function thirdInterval(){
 }
 function displayResults(){
   document.getElementById("colorResult").innerHTML = "Color: " + colors[0];
+  document.getElementById("spinner_button").disabled = false;
 }
 var tempClass;
 var tempText;
@@ -108,4 +110,5 @@ function reset(){
   text = [];
   originalText =[];
   document.getElementById("colorResult").innerHTML = "Color: ";
+  document.getElementById("spinner_button").disabled = false;
 }
