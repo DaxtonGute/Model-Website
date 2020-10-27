@@ -39,11 +39,11 @@ function displayResults(){
   userText = document.getElementById("textField").value;
   document.getElementById("TimeSpent").innerHTML = "Timer: " + timer;
   for (var i = 0; i < chosenPhrase.length; i++) {
-    if (chosenPhrase.substring(i, i+1).equals(userText.substring(i, i+1))) {
+    if (chosenPhrase.charAt(i) == userText.charAt(i)) {
       numCorrect += 1;
     }
   }
   alert("" + numCorrect);
-  document.getElementById("Correctness").innerHTML = "Percent Correct: " + numCorrect/chosenPhrase.length;
+  document.getElementById("Correctness").innerHTML = "Percent Correct: " + (numCorrect/chosenPhrase.length)*100 + "%";
   document.getElementById("WPM").innerHTML = "WPM: " + chosenPhrase.length/timer;
 }
