@@ -9,6 +9,7 @@
     <script src="script.js"></script>
     <script src="clicker.js"></script>
     <script src="spinner.js"></script>
+    <script src="typingTutor.js"></script>
     <!-- Importing Their Javascript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -69,6 +70,7 @@
     </div>
 
     <!-- Name Picker -->
+    <!-- add button  with add value attribute or 'focus out' to customize buttons-->
     <div class="container-fluid" style="padding-bottom: 50px; background-color: pink">
       <h2 style="padding-top: 10px"> Bootstrap Color Picker </h2>
       <div class="btn-group btn-block" data-toggle="buttons" style="padding-bottom:50px">
@@ -117,7 +119,35 @@
         </div>
       </div>
     </div>
-    <!-- add button  with add value attribute or 'focus out'-->
+
+    <!-- Typing Tester -->
+    <!-- maybe customize phrases instead of just default-->
+    <div class="container-fluid" style="padding-bottom: 50px; background-color: lightblue">
+      <h2 style="padding-top: 10px"> Typing Sprint </h2>
+      <div class="row">
+        <div class="col-lg-4">
+          <button class="btn btn-info btn-block" onclick="newPhrase()"> New Pangraph </button>
+        </div>
+        <div class="col-lg-8">
+          <p id="typingPhrase" style="font-size: 25px"> The quick brown fox jumps over the lazy dog </p>
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control form-control-lg" placeholder="Type" name="text3" id="textField">
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <p id="WPM" style="font-size: 18px"> WPM: </p>
+        </div>
+        <div class="col-md-4">
+          <p id="Correctness" style="font-size: 18px"> Percent Correct: </p>
+        </div>
+        <div class="col-md-4">
+          <p id="TimeSpent" style="font-size: 18px"> Timer: 0</p>
+        </div>
+      </div>
+    </div>
+
     <!-- footer -->
     <footer class="page-footer font-small bg-info">
       <div class="footer-copyright text-center py-3">© 2020 Copyright:
