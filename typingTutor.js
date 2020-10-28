@@ -17,6 +17,7 @@ function newPhrase(){
   document.getElementById("Correctness").innerHTML = "Percent Correct: 0";
   document.getElementById("TimeSpent").innerHTML = "Timer: 0";
   resultsActivated = false;
+  numCorrect = 0;
 }
 
 function checkInputBox() {
@@ -26,7 +27,7 @@ function checkInputBox() {
   if(document.getElementById("textField").value.length >= chosenPhrase.length){
     activated = false;
     if(!resultsActivated){
-      displayResults();
+      displayTypingResults();
     }
   }
   if (activated){
@@ -34,7 +35,7 @@ function checkInputBox() {
   }
 }
 
-function displayResults(){
+function displayTypingResults(){
   resultsActivated = true;
   userText = document.getElementById("textField").value;
   document.getElementById("TimeSpent").innerHTML = "Timer: " + timer;
@@ -44,5 +45,6 @@ function displayResults(){
     }
   }
   document.getElementById("Correctness").innerHTML = "Percent Correct: " + (numCorrect/chosenPhrase.length)*100 + "%";
-  document.getElementById("WPM").innerHTML = "WPM: " + chosenPhrase.length/timer;
+  //5char per word, 60 sec per min
+  document.getElementById("WPM").innerHTML = "WPM: " + (chosenPhrase.length/5)/(timer/60);
 }

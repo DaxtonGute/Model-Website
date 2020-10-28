@@ -1,4 +1,3 @@
-
 //spinner
 var timer = 10;
 var colors = [];
@@ -10,7 +9,6 @@ var intervalOne;
 var intervalTwo;
 var intervalThree;
 function doTheSpin(){
-  document.getElementById("spinner_button").disabled = true;
   if (colors.length == 0){
     if(document.getElementById("danger-button").classList.contains("active")){
       colors.push("danger");
@@ -61,10 +59,13 @@ function doTheSpin(){
       originalText.push("light");
     }
   }
-  intervalOne = setInterval("movePositions()", 50);
-  var random = Math.random();
-  setTimeout("clearInterval(intervalOne)", 3000*random);
-  setTimeout("secondInterval()", 3000*random);
+  if (colors.length > 1) {
+    document.getElementById("spinner_button").disabled = true;
+    intervalOne = setInterval("movePositions()", 50);
+    var random = Math.random();
+    setTimeout("clearInterval(intervalOne)", 3000*random);
+    setTimeout("secondInterval()", 3000*random);
+  }
 }
 function secondInterval(){
   intervalTwo = setInterval("movePositions()", 100);
@@ -76,9 +77,10 @@ function thirdInterval(){
   intervalThree = setInterval("movePositions()", 200);
   var random = Math.random();
   setTimeout("clearInterval(intervalThree);", 3000*random);
-  setTimeout("displayResults();", 3000*random);
+
+  setTimeout("displaySpinnerResults();", 3000*random);
 }
-function displayResults(){
+function displaySpinnerResults(){
   document.getElementById("colorResult").innerHTML = "Color: " + colors[0];
   document.getElementById("spinner_button").disabled = false;
 }
