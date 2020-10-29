@@ -67,7 +67,7 @@ function turnOnMoles(){
   setTimeout("turnOffMoles();", 300);
 }
 
-function turnOnMoles(){
+function turnOffMoles(){
   for (var i = 0; i < moles.length; i++) {
     document.getElementById(moles[i]).classList = "btn btn-secondary";
   }
