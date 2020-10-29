@@ -13,9 +13,9 @@ function startWack(){
 }
 
 function wack_randomize(){
-  var random = Math.floor(Math.random()*23.99);
-  popOut(random);
   if (!gameOver){
+    var random = Math.floor(Math.random()*23.99);
+    popOut(random);
     setTimeout("wack_randomize();", startingInterval);
     startingInterval = startingInterval - 100;
   }
@@ -30,7 +30,6 @@ function popOut(blockNum){
 
 function resetBlock(blockNum){
   if (molesClicked[blockNum]){
-
     score ++;
     document.getElementById("wack_score").innerHTML = "Score: " + score;
   }else{
@@ -50,16 +49,14 @@ function moleClicked(blockNum){
 
 function resetWack(){
   gameOver = true;
-  for (var i = 0; i < 3; i++) {
-    setTimeout("turnOnMoles();", 250);
-  }
-  score = 0;
+  setTimeout("turnOnMoles();", 250);
   document.getElementById("wack_score").innerHTML = "Score: 0";
   document.getElementById("wack_start").disabled = false;
   if (score > highScore) {
-    highScore = score
-    document.getElementById("wack_high_score").innerHTML = "High Score: " + score;
+    highScore = score;
+    document.getElementById("wack_high_score").innerHTML = "High Score: " + highScore;
   }
+  score = 0;
   startingInterval = 3000;
 }
 
@@ -67,7 +64,7 @@ function turnOnMoles(){
   for (var i = 0; i < moles.length; i++) {
     document.getElementById(moles[i]).classList = "btn btn-light";
   }
-  setTimeout("turnOffMoles();", 250);
+  setTimeout("turnOffMoles();", 300);
 }
 
 function turnOnMoles(){
