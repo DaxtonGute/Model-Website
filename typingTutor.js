@@ -13,7 +13,7 @@ function newPhrase(){
   document.getElementById("typingPhrase").innerHTML = chosenPhrase;
   document.getElementById("textField").value = "";
   timer = 0;
-  document.getElementById("WPM").innerHTML = "WPM: 0";
+  document.getElementById("WPM").innerHTML = "Adjusted WPM: 0";
   document.getElementById("Correctness").innerHTML = "Percent Correct: 0";
   document.getElementById("TimeSpent").innerHTML = "Timer: 0";
   resultsActivated = false;
@@ -38,13 +38,13 @@ function checkInputBox() {
 function displayTypingResults(){
   resultsActivated = true;
   userText = document.getElementById("textField").value;
-  document.getElementById("TimeSpent").innerHTML = "Timer: " + timer;
+  document.getElementById("TimeSpent").innerHTML = "Timer: " + (Math.floor(100*timer))/100;
   for (var i = 0; i < chosenPhrase.length; i++) {
     if (chosenPhrase.charAt(i) == userText.charAt(i)) {
       numCorrect += 1;
     }
   }
-  document.getElementById("Correctness").innerHTML = "Percent Correct: " + (numCorrect/chosenPhrase.length)*100 + "%";
+  document.getElementById("Correctness").innerHTML = "Percent Correct: " + (Math.floor(((numCorrect/chosenPhrase.length)*10000))/100) + "%";
   //5char per word, 60 sec per min
-  document.getElementById("WPM").innerHTML = "WPM: " + (chosenPhrase.length/5)/(timer/60);
+  document.getElementById("WPM").innerHTML = "Adjusted WPM: " + (Math.floor(100*(chosenPhrase.length/5)/(timer/60)))/100;
 }
