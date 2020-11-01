@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Importing My Javascript -->
     <script src="script.js"></script>
+    <script src="typingTutor.js"></script>
     <!-- Importing Their Javascript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -15,11 +16,11 @@
     <!-- Specifying Website Specifics -->
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
   </head>
-  <body>
+  <body style="background-color: lightblue;">
 
     <!-- NavBar -->
     <div class="container-fluid bg-dark p-2 NavBar" style="z-index:3">
-      <a href="#" class="text-muted m-3" style="font-size:32px"> myArcade(); </a>
+      <a href="Home.html" class="text-muted m-3" style="font-size:32px"> myArcade(); </a>
       <button class="dropDown btn" onclick="toggleMenuSwitch()" id="menuSwitch">&#9776;</button>
     </div>
     <!-- SOMEHOW REPLACE WITH MODAL -->
@@ -28,7 +29,8 @@
       <div id="submenu">
         <div class="list-group" style="padding-top:70px">
           <!-- Make things active and non-active accordingly -->
-          <a href="Typing_Tutor.html" class="list-group-item">Typing Tutor</a>
+          <!-- Need the href be manual -->
+          <a href="#" class="list-group-item active">Typing Tutor</a>
           <a href="Color_Spinner.html" class="list-group-item">Color Spinner</a>
           <a href="CPS_Tester.html" class="list-group-item">CPS Tester</a>
           <a href="Wack-a-Mole.html" class="list-group-item">Wack-a-Mole</a>
@@ -36,45 +38,35 @@
       </div>
     </div>
 
-    <!-- caution text -->
-    <div class="jumbotron">
-      <h1><span class="badge badge-warning">Caution</span> Site under construction! </h1>
-      <p>A new release will be coming soon! If you don't see the features you would like to see here, go ahead and fill out the below form</p>
-    </div>
 
-    <!-- sample text -->
-    <div class="container">
-      <h1> Its Me! </h1>
-      <h2> This is supposed to be a main page. </h2>
-      <h3> But, not quite (I am literally not creative enough): I welcome your feedback. </h3>
-      <h4> The other pages work though! Specifically go from Battleship to KidByKid and finally UglyWebsite. Check them out in this order: </h4>
+    <!-- Typing Tutor -->
+    <!-- maybe customize phrases instead of just default and also highlight which letters were wrong-->
+    <div class="container-fluid" style="padding-bottom: 50px; background-color: lightblue">
+      <h2 style="padding-top: 10px"> Typing Sprint </h2>
       <div class="row">
-        <div class="col-sm-12 col-md-6 col-lg-4"> 1. Battleship </div>
-        <div class="col-sm-12 col-md-6 col-lg-4"> 2. KidByKid </div>
-        <div class="col-sm-12 col-md-6 col-lg-4"> 3. UglyWebsite </div>
-      </div>
-      <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms" src="https://giphy.com/embed/h8lH6itZv19SEGhf5A" scrolling="no" style= "border:0px"></iframe>
-    </div>
-
-    <!-- useless query section -->
-    <div class="container">
-      <div id="didNothing" class="collapse">
-        <div class="alert alert-success">
-          <strong>Congrats!</strong> you did nothing, I haven't implemented this.
+        <div class="col-lg-4">
+          <button class="btn btn-info btn-block" onclick="newPhrase()"> New Pangraph </button>
+        </div>
+        <div class="col-lg-8">
+          <p id="typingPhrase" style="font-size: 25px"> The quick brown fox jumps over the lazy dog </p>
         </div>
       </div>
       <div class="form-group">
-        <label>Name:</label>
-        <input class="form-control" placeholder="Enter name" id="email">
+        <input type="text" class="form-control form-control-lg" placeholder="Type" name="text3" id="textField" autocomplete="off">
       </div>
-      <div class="form-group">
-        <label>Complaint:</label>
-        <input class="form-control" placeholder="Enter complaint" id="pwd">
+      <div class="row">
+        <div class="col-md-4">
+          <p id="WPM" style="font-size: 18px"> WPM: 0 </p>
+        </div>
+        <div class="col-md-4">
+          <p id="Correctness" style="font-size: 18px"> Percent Correct: 0 </p>
+        </div>
+        <div class="col-md-4">
+          <p id="TimeSpent" style="font-size: 18px"> Timer: 0 </p>
+        </div>
       </div>
-      <button type="submit" class="btn btn-primary" data-toggle="collapse" data-target="#didNothing" style="margin-bottom:10px">Submit</button>
-      </form>
+      <h6> Don't worry! Results are displayed after so as to not discourage you! </h6>
     </div>
-
 
     <!-- footer -->
     <footer class="page-footer font-small bg-info">

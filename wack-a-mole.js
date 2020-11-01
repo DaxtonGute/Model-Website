@@ -35,7 +35,7 @@ function resetBlock(blockNum){
   }else{
     resetWack();
   }
-  document.getElementById(moles[blockNum]).innerHTML = "O";
+  document.getElementById(moles[blockNum]).innerHTML = "&nbsp;&nbsp;O&nbsp;&nbsp;";
   document.getElementById(moles[blockNum]).classList = "btn btn-secondary";
   molesActivated[blockNum] = false;
   molesClicked[blockNum] = false;

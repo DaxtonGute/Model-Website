@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Importing Custom Styles -->
+    <link rel="stylesheet" href="stylesheet.css" type="text/css"/>
+    <!-- Importing Bootsrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Importing My Javascript -->
+    <script src="script.js"></script>
+    <script src="clicker.js"></script>
+    <!-- Importing Their Javascript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Website Title -->
+    <title> Pixel Arcade </title>
+    <!-- Specifying Website Specifics -->
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body style="background-color: aquamarine;">
+
+    <!-- NavBar -->
+    <div class="container-fluid bg-dark p-2 NavBar" style="z-index:3">
+      <a href="Home.html" class="text-muted m-3" style="font-size:32px"> myArcade(); </a>
+      <button class="dropDown btn" onclick="toggleMenuSwitch()" id="menuSwitch">&#9776;</button>
+    </div>
+    <!-- SOMEHOW REPLACE WITH MODAL -->
+    <div id="DDM">
+      <!-- SOMEHOW REPLACE WITH COLLAPSE -->
+      <div id="submenu">
+        <div class="list-group" style="padding-top:70px">
+          <!-- Make things active and non-active accordingly -->
+          <!-- Need the href be manual -->
+          <a href="Typing_Tutor.html" class="list-group-item">Tutor Tutor</a>
+          <a href="Color_Spinner.html" class="list-group-item">Color Spinner</a>
+          <a href="#" class="list-group-item active">CPS Tester</a>
+          <a href="Wack-a-Mole.html" class="list-group-item">Wack-a-Mole</a>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- CPS Tester -->
+    <div class="container-fluid" style="padding-bottom: 50px" style="background-color:aquamarine">
+      <h1> CPS Tester </h1>
+      <div class="btn-group btn-block">
+        <button id="oneSec" type="button" onclick="toOneSec();" class="btn btn-primary">1 sec</button>
+        <button id="threeSec" type="button" onclick="toThreeSec();" class="btn btn-primary">3 sec</button>
+        <button id="fiveSec" type="button" onclick="toFiveSec();" class="btn btn-primary active">5 sec</button>
+        <button id="tenSec" type="button" onclick="toTenSec();" class="btn btn-primary">10 sec</button>
+        <button id="twentySec" type="button" onclick="toTwentySec();" class="btn btn-primary">20 sec</button>
+        <button id="hundredSec" type="button" onclick="toHunddangerSec();" class="btn btn-primary">100 sec</button>
+      </div>
+      <h3 id="timeLeft"> Time Left: 5.00 Seconds </h3>
+      <h3 id="clicks"> Clicks: 0 clicks</h3>
+      <button id="buttonClicker" onclick="CPSTester();" type="button" style="height: 300px; border-radius: 60px" class="btn btn-primary btn-block">After you click here you will be given 5 seconds of clicking as fast as you can</button>
+
+      <div class="modal" id="Results">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 id="CPS"> CPS: 0 clicks per second </h3>
+              <button type="button" class="close" onClick="closeModal();" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <p id="highScore"> New High Score! <p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- footer -->
+    <footer class="page-footer font-small bg-info" style="margin-top:10px">
+      <div class="footer-copyright text-center py-3">© 2020 Copyright:
+        <a href="mailto:dax.gutekunst.23@bishops.com"> Send only nice things!</a>
+      </div>
+    </footer>
+  </body>
+</html>

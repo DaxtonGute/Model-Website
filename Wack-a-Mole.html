@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Importing Custom Styles -->
+    <link rel="stylesheet" href="stylesheet.css" type="text/css"/>
+    <!-- Importing Bootsrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Importing My Javascript -->
+    <script src="script.js"></script>
+    <script src="wack-a-mole.js"></script>
+    <!-- Importing Their Javascript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Website Title -->
+    <title> Pixel Arcade </title>
+    <!-- Specifying Website Specifics -->
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      .moleHole{
+        font-family:monospace;
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- NavBar -->
+    <div class="container-fluid bg-dark p-2 NavBar" style="z-index:3">
+      <a href="#" class="text-muted m-3" style="font-size:32px"> myArcade(); </a>
+      <button class="dropDown btn" onclick="toggleMenuSwitch()" id="menuSwitch">&#9776;</button>
+    </div>
+    <!-- SOMEHOW REPLACE WITH MODAL -->
+    <div id="DDM">
+      <!-- SOMEHOW REPLACE WITH COLLAPSE -->
+      <div id="submenu">
+        <div class="list-group" style="padding-top:70px">
+          <!-- Make things active and non-active accordingly -->
+          <a href="Typing_Tutor.html" class="list-group-item">Typing Tutor</a>
+          <a href="Color_Spinner.html" class="list-group-item">Color Spinner</a>
+          <a href="CPS_Tester.html" class="list-group-item">CPS Tester</a>
+          <a href="#" class="list-group-item active">Wack-a-Mole</a>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- wack-a-mole -->
+    <!-- How to customize the number of rows and collumns -->
+    <!-- put text in div and then make fixed width so it doesn't resize button-->
+    <div class="container-fluid" style="padding-bottom: 50px; background-color: orange">
+      <h2 style="padding-top: 10px"> Wack-a-Mole </h2>
+      <div class="btn-group-vertical btn-block">
+        <div class="btn-group btn-block">
+          <button type="button" id="but1" class="btn btn-secondary moleHole" onClick="moleClicked(0);">&nbsp;&nbsp;O&nbsp;&nbsp;</button>
+          <button type="button" id="but2" class="btn btn-secondary moleHole" onClick="moleClicked(1);">&nbsp;&nbsp;O&nbsp;&nbsp;</button>
+          <button type="button" id="but3" class="btn btn-secondary moleHole" onClick="moleClicked(2);">&nbsp;&nbsp;O&nbsp;&nbsp;</button>
+          <button type="button" id="but4" class="btn btn-secondary moleHole" onClick="moleClicked(3);">&nbsp;&nbsp;O&nbsp;&nbsp;</button>
+          <button type="button" id="but5" class="btn btn-secondary moleHole" onClick="moleClicked(4);">&nbsp;&nbsp;O&nbsp;&nbsp;</button>
+          <button type="button" id="but6" class="btn btn-secondary moleHole" onClick="moleClicked(5);">&nbsp;&nbsp;O&nbsp;&nbsp;</button>
+        </div>
+        <div class="btn-group btn-block">
+          <button type="button" id="but7" class="btn btn-secondary moleHole" onClick="moleClicked(6);">&nbsp;&nbsp;O&nbsp;&nbsp;</button>
+          <button type="button" id="but8" class="btn btn-secondary moleHole" onClick="moleClicked(7);">&nbsp;&nbsp;O&nbsp;&nbsp;</button>
+          <button type="button" id="but9" class="btn btn-secondary moleHole" onClick="moleClicked(8);">&nbsp;&nbsp;O&nbsp;&nbsp;</button>
+          <button type="button" id="but10" class="btn btn-secondary moleHole" onClick="moleClicked(9);">&nbsp;&nbsp;O&nbsp;&nbsp;</button>
+          <button type="button" id="but11" class="btn btn-secondary moleHole" onClick="moleClicked(10);">&nbsp;&nbsp;O&nbsp;&nbsp;</button>
+          <button type="button" id="but12" class="btn btn-secondary moleHole" onClick="moleClicked(11);">&nbsp;&nbsp;O&nbsp;&nbsp;</button>
+        </div>
+        <div class="btn-group btn-block">
+          <button type="button" id="but13" class="btn btn-secondary moleHole" onClick="moleClicked(12);">&nbsp;&nbsp;O&nbsp;&nbsp;</button>
+          <button type="button" id="but14" class="btn btn-secondary moleHole" onClick="moleClicked(13);">&nbsp;&nbsp;O&nbsp;&nbsp;</button>
+          <button type="button" id="but15" class="btn btn-secondary moleHole" onClick="moleClicked(14);">&nbsp;&nbsp;O&nbsp;&nbsp;</button>
+          <button type="button" id="but16" class="btn btn-secondary moleHole" onClick="moleClicked(15);">&nbsp;&nbsp;O&nbsp;&nbsp;</button>
+          <button type="button" id="but17" class="btn btn-secondary moleHole" onClick="moleClicked(16);">&nbsp;&nbsp;O&nbsp;&nbsp;</button>
+          <button type="button" id="but18" class="btn btn-secondary moleHole" onClick="moleClicked(17);">&nbsp;&nbsp;O&nbsp;&nbsp;</button>
+        </div>
+        <div class="btn-group btn-block">
+          <button type="button" id="but19" class="btn btn-secondary moleHole" onClick="moleClicked(18);">&nbsp;&nbsp;O&nbsp;&nbsp;</button>
+          <button type="button" id="but20" class="btn btn-secondary moleHole" onClick="moleClicked(19);">&nbsp;&nbsp;O&nbsp;&nbsp;</button>
+          <button type="button" id="but21" class="btn btn-secondary moleHole" onClick="moleClicked(20);">&nbsp;&nbsp;O&nbsp;&nbsp;</button>
+          <button type="button" id="but22" class="btn btn-secondary moleHole" onClick="moleClicked(21);">&nbsp;&nbsp;O&nbsp;&nbsp;</button>
+          <button type="button" id="but23" class="btn btn-secondary moleHole" onClick="moleClicked(22);">&nbsp;&nbsp;O&nbsp;&nbsp;</button>
+          <button type="button" id="but24" class="btn btn-secondary moleHole" onClick="moleClicked(23);">&nbsp;&nbsp;O&nbsp;&nbsp;</button>
+        </div>
+      </div>
+      <div class="row" style="padding-top: 10px">
+        <div class="col-md-4">
+          <p id="wack_score"> Score: 0 </p>
+        </div>
+        <div class="col-md-4">
+          <p id="wack_high_score"> High Score: 0 </p>
+        </div>
+        <div class="col-md-4">
+          <button type="button" class="btn btn-success btn-block" id="wack_start" onClick="startWack();"> Start Game </button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- footer -->
+    <footer class="page-footer font-small bg-info">
+      <div class="footer-copyright text-center py-3">© 2020 Copyright:
+        <a href="mailto:dax.gutekunst.23@bishops.com"> Send only nice things!</a>
+      </div>
+    </footer>
+  </body>
+</html>

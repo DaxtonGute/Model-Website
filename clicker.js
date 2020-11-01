@@ -12,6 +12,7 @@ function CPSTester(){
   if(!alreadyTriggered){
     countDown = numSec;
     alreadyTriggered = true;
+    //not exactly 10 due to computational time
     interval = window.setInterval(updateTimer, 10);
   }
 }
@@ -22,12 +23,13 @@ function updateTimer(){
   }else{
     clearInterval(interval);
     alreadyTriggered = false;
+    var score = (Math.floor((numClicks/numSec)*100))/100
     document.getElementById("Results").style.display = "block";
-    document.getElementById('CPS').innerHTML = "CPS: " + (numClicks/numSec) + " clicks per second";
-    if((numClicks/numSec) > bestCPS){
+    document.getElementById('CPS').innerHTML = "CPS: " + score + " clicks per second";
+    if(score > bestCPS){
       bestCPS = (numClicks/numSec);
     }else{
-      document.getElementById('highScore').innerHTML = "You are off your score by " + (bestCPS - (numClicks/numSec)) + " cps"
+      document.getElementById('highScore').innerHTML = "You are off your score by " + score + " cps"
     }
     countDown = numSec;
     numClicks = 0;
@@ -69,7 +71,7 @@ function universalReset(seconds){
     document.getElementById('tenSec').className = "btn btn-primary active";
   }else if(seconds == 20){
     document.getElementById('twentySec').className = "btn btn-primary active";
-  }else if(seconds == 100){
+  }else{
     document.getElementById('hundredSec').className = "btn btn-primary active";
   }
   numSec = seconds;
