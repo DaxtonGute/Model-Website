@@ -1,5 +1,5 @@
 # Pixel Arcade
-Please look at commit 72067a9 and try out my games
+Please look at commit e93c663 and try out my games
 ## There are four games
 1. Typing Tutor
 2. Color Spinner
