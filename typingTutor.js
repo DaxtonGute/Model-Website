@@ -1,5 +1,5 @@
-var defaultPhrases = ["The quick brown fox jumps over the lazy dog", "Jinxed wizards pluck ivy from the big quilt", "Crazy Fredrick bought many very exquisite opal jewels"];
-var chosenPhrase = "The quick brown fox jumps over the lazy dog";
+var defaultPhrases = ["waltz, bad nymph, for quick jigs vex", "quick zephyrs blow, vexing daft jim", "sphinx of black quartz, judge my vow", "two driven jocks help fax my big quiz", "five quacking zephyrs jolt my wax bed", "the five boxing wizards jump quickly", "pack my box with five dozen liquor jugs", "the quick brown fox jumps over the lazy dog", "jinxed wizards pluck ivy from the big quilt", "crazy fredrick bought many very exquisite opal jewels", "we promptly judged antique ivory buckles for the next prize", "a mad boxer shot a quick, gloved jab to the jaw of his dizzy opponent", "jaded zombies acted quaintly but kept driving their oxen forward", "the job requires extra pluck and zeal from every young wage earned"];
+var chosenPhrase = "the quick brown fox jumps over the lazy dog";
 var interval = setInterval("checkInputBox()", 100);
 var activated = false;
 var resultsActivated = false;
