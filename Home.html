@@ -15,7 +15,7 @@
     <!-- Specifying Website Specifics -->
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
   </head>
-  <body>
+  <body style="background-image: linear-gradient(0deg, rgba(0,35,255,1) 0%, rgba(119,28,171,1) 53%, rgba(126,29,20,1) 100%); ">
 
     <!-- NavBar -->
     <div class="container-fluid bg-dark p-2 NavBar" style="z-index:3">
@@ -36,45 +36,52 @@
       </div>
     </div>
 
-    <!-- caution text -->
-    <div class="jumbotron">
-      <h1><span class="badge badge-warning">Caution</span> Site under construction! </h1>
-      <p>A new release will be coming soon! If you don't see the features you would like to see here, go ahead and fill out the below form</p>
+    <!-- Info -->
+    <div class="alert alert-info">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <span class="badge badge-info">Info</span> New Games Coming Out Soon!
     </div>
 
-    <!-- sample text -->
+    <!-- Game Library -->
     <div class="container">
-      <h1> Its Me! </h1>
-      <h2> This is supposed to be a main page. </h2>
-      <h3> But, not quite (I am literally not creative enough): I welcome your feedback. </h3>
-      <h4> The other pages work though! Specifically go from Battleship to KidByKid and finally UglyWebsite. Check them out in this order: </h4>
-      <div class="row">
-        <div class="col-sm-12 col-md-6 col-lg-4"> 1. Battleship </div>
-        <div class="col-sm-12 col-md-6 col-lg-4"> 2. KidByKid </div>
-        <div class="col-sm-12 col-md-6 col-lg-4"> 3. UglyWebsite </div>
-      </div>
-      <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms" src="https://giphy.com/embed/h8lH6itZv19SEGhf5A" scrolling="no" style= "border:0px"></iframe>
-    </div>
-
-    <!-- useless query section -->
-    <div class="container">
-      <div id="didNothing" class="collapse">
-        <div class="alert alert-success">
-          <strong>Congrats!</strong> you did nothing, I haven't implemented this.
+      <h1 style="color: white; padding-top: 20px; padding-bottom:20px"> Welcome to our game library </h1>
+      <div class="card-deck">
+        <div class="card">
+          <img class="card-img-top" src="typing.png" alt="Card image">
+          <div class="card-body text-center">
+            <h4 class="card-title">Typing Tutor</h4>
+            <p class="card-text">Test out your typing skills here and race to finish the phrases!</p>
+            <a href="Typing_Tutor.html" class="btn btn-primary stretched-link">See Game</a>
+          </div>
+        </div>
+        <div class="card">
+          <img class="card-img-top" src="spinner.png" alt="Card image">
+          <div class="card-body text-center">
+            <h4 class="card-title">Color Spinner</h4>
+            <p class="card-text">Pick a random color for your next design palette or html website!</p>
+            <a href="Color_Spinner.html" class="btn btn-primary stretched-link">See Game</a>
+          </div>
+        </div>
+        <div class="card">
+          <img class="card-img-top" src="CPS.png" alt="Card image">
+          <div class="card-body text-center">
+            <h4 class="card-title">CPS Tester</h4>
+            <p class="card-text">Ever wondered how many times you can click in a second?</p>
+            <a href="CPS_Tester.html" class="btn btn-primary stretched-link">See Game</a>
+          </div>
+        </div>
+        <div class="card">
+          <img class="card-img-top" src="wack.png" alt="Card image">
+          <div class="card-body text-center">
+            <h4 class="card-title">Wack-a-Mole</h4>
+            <p class="card-text">Play a classic arcade game and test your reaction skills.</p>
+            <a href="Wack-a-Mole.html" class="btn btn-primary stretched-link">See Game</a>
+          </div>
         </div>
       </div>
-      <div class="form-group">
-        <label>Name:</label>
-        <input class="form-control" placeholder="Enter name" id="email">
-      </div>
-      <div class="form-group">
-        <label>Complaint:</label>
-        <input class="form-control" placeholder="Enter complaint" id="pwd">
-      </div>
-      <button type="submit" class="btn btn-primary" data-toggle="collapse" data-target="#didNothing" style="margin-bottom:10px">Submit</button>
-      </form>
+      <p style="padding-top: 10px; color:white" > I hope you enjoy our 'expansive' game library. Don't worry, more games are in development. If you have any questions, feel free to contact me. If you wish to use any of the above assets to perhaps build your own variation, feel free to do so. I would love to see any of your spin-offs, so don't forget to share with me :). Have a fantastic rest of your day!</p>
+      <p style="color:white"> Here is the link to the project so you can make forks off of it: <a href="https://github.com/DaxtonGute/Model-Website"><img src='Github.svg' style="width:25px"/></a></p>
     </div>
-
 
     <!-- footer -->
     <footer class="page-footer font-small bg-info">

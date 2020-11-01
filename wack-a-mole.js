@@ -35,7 +35,7 @@ function resetBlock(blockNum){
   }else{
     resetWack();
   }
-  document.getElementById(moles[blockNum]).innerHTML = "&nbsp;&nbsp;O&nbsp;&nbsp;";
+  document.getElementById(moles[blockNum]).innerHTML = "o";
   document.getElementById(moles[blockNum]).classList = "btn btn-secondary";
   molesActivated[blockNum] = false;
   molesClicked[blockNum] = false;
@@ -51,13 +51,21 @@ function resetWack(){
   gameOver = true;
   setTimeout("turnOnMoles();", 250);
   document.getElementById("wack_score").innerHTML = "Score: 0";
-  document.getElementById("wack_start").disabled = false;
+  setTimeout("turnStartOn();", 2000);
   if (score > highScore) {
     highScore = score;
     document.getElementById("wack_high_score").innerHTML = "High Score: " + highScore;
   }
+  for (var i = 0; i < molesClicked.length; i++) {
+    molesClicked[i] = false;
+    molesActivated[i] = false;
+  }
   score = 0;
   startingInterval = 3000;
+}
+
+function turnStartOn(){
+  document.getElementById("wack_start").disabled = false;
 }
 
 function turnOnMoles(){
