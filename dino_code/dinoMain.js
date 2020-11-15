@@ -17,7 +17,68 @@ class singleSmallCactus{ //how to import
   }
   moveForward(){
     context.fillStyle = "black"; //maybe redundant
-    context.fillRect(this.xPos, canvas.height*0.7, canvas.width*0.06, canvas.width*0.1);
+    var singleSmallCactus = document.getElementById("singleSmallCactus");
+    context.drawImage(singleSmallCactus, this.xPos, canvas.height*0.7, canvas.width*0.06, canvas.width*0.1);
+    this.xPos -= runVel;
+  }
+}
+
+class doubleSmallCactus{ //how to import
+  constructor(xPos) {
+   this.xPos = xPos;
+  }
+  moveForward(){
+    context.fillStyle = "black"; //maybe redundant
+    var doubleSmallCactus = document.getElementById("doubleSmallCactus");
+    context.drawImage(doubleSmallCactus, this.xPos, canvas.height*0.7, canvas.width*0.12, canvas.width*0.1);
+    this.xPos -= runVel;
+  }
+}
+
+class tripleSmallCactus{ //how to import
+  constructor(xPos) {
+   this.xPos = xPos;
+  }
+  moveForward(){
+    context.fillStyle = "black"; //maybe redundant
+    var tripleSmallCactus = document.getElementById("tripleSmallCactus");
+    context.drawImage(tripleSmallCactus, this.xPos, canvas.height*0.7, canvas.width*0.18, canvas.width*0.1);
+    this.xPos -= runVel;
+  }
+}
+
+class singleLargeCactus{ //how to import
+  constructor(xPos) {
+   this.xPos = xPos;
+  }
+  moveForward(){
+    context.fillStyle = "black"; //maybe redundant
+    var singleLargeCactus = document.getElementById("singleLargeCactus");
+    context.drawImage(singleLargeCactus, this.xPos, canvas.height*0.61, canvas.width*0.08, canvas.width*0.14);
+    this.xPos -= runVel;
+  }
+}
+
+class doubleLargeCactus{ //how to import
+  constructor(xPos) {
+   this.xPos = xPos;
+  }
+  moveForward(){
+    context.fillStyle = "black"; //maybe redundant
+    var doubleLargeCactus = document.getElementById("doubleLargeCactus");
+    context.drawImage(doubleLargeCactus, this.xPos, canvas.height*0.61, canvas.width*0.16, canvas.width*0.14);
+    this.xPos -= runVel;
+  }
+}
+
+class tripleLargeCactus{ //how to import
+  constructor(xPos) {
+   this.xPos = xPos;
+  }
+  moveForward(){
+    context.fillStyle = "black"; //maybe redundant
+    var tripleLargeCactus = document.getElementById("tripleLargeCactus");
+    context.drawImage(tripleLargeCactus, this.xPos, canvas.height*0.61, canvas.width*0.24, canvas.width*0.14);
     this.xPos -= runVel;
   }
 }
@@ -30,9 +91,9 @@ var dinoHeight = canvas.height*0.65;
 var dinoVel = 0;
 var isJumping = false;
 
-var gravity = 1;
-var jumpVel = 20;
-var runVel = 10;
+var gravity = 2;
+var jumpVel = 35;
+var runVel = 15;
 var cacti = [new singleSmallCactus(canvas.width*1), new singleSmallCactus(canvas.width*2), new singleSmallCactus(canvas.width*3), new singleSmallCactus(canvas.width*4)];
 var cactiOffset = [0, 0, 0, 0];
 var lastOffset = 0;
@@ -52,14 +113,21 @@ function drawAll(){
   jump();
   for (var i = 0; i < cacti.length; i++) {
     cacti[i].moveForward();
-    if (cacti[i].xPos <= 0){
-      var offset =(Math.random()-0.5)*canvas.width
-      cacti[i] = new singleSmallCactus(canvas.width*(4) - cactiOffset[i] + ((Math.random()-0.5)*canvas.width*0.5));
+    if (cacti[i].xPos <= canvas.width*(-0.5)){
+      var offset =(Math.random()-0.5)*canvas.width*(0.5)
+      cacti[i] = new tripleLargeCactus(canvas.width*(4.5) - cactiOffset[i] + offset);
       cactiOffset[i] = offset;
     }
   }
 
   window.requestAnimationFrame(drawAll);
+}
+
+var choices = ["singleSmallCactus", "doubleSmallCactus", "tripleSmallCactus", "singleLargeCactus", doubleSmallCactus]
+function spawnRandomCactus(){
+  var offset =(Math.random()-0.5)*canvas.width*(0.5);
+
+  cactiOffset[i] = offset;
 }
 
 function jump () {
