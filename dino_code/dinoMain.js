@@ -17,7 +17,7 @@ class singleSmallCactus{ //how to import
   moveForward(){
     context.fillStyle = "black"; //maybe redundant
     var singleSmallCactus = document.getElementById("singleSmallCactus");
-    context.drawImage(singleSmallCactus, this.xPos, canvas.height*0.7, canvas.width*0.06, canvas.width*0.1);
+    context.drawImage(singleSmallCactus, this.xPos, canvas.height*0.65 + 25, canvas.width*0.06, canvas.width*0.1);
     this.xPos -= runVel;
   }
 }
@@ -29,7 +29,7 @@ class doubleSmallCactus{ //how to import
   moveForward(){
     context.fillStyle = "black"; //maybe redundant
     var doubleSmallCactus = document.getElementById("doubleSmallCactus");
-    context.drawImage(doubleSmallCactus, this.xPos, canvas.height*0.7, canvas.width*0.12, canvas.width*0.1);
+    context.drawImage(doubleSmallCactus, this.xPos, canvas.height*0.65 + 25, canvas.width*0.12, canvas.width*0.1);
     this.xPos -= runVel;
   }
 }
@@ -41,7 +41,7 @@ class tripleSmallCactus{ //how to import
   moveForward(){
     context.fillStyle = "black"; //maybe redundant
     var tripleSmallCactus = document.getElementById("tripleSmallCactus");
-    context.drawImage(tripleSmallCactus, this.xPos, canvas.height*0.7, canvas.width*0.18, canvas.width*0.1);
+    context.drawImage(tripleSmallCactus, this.xPos, canvas.height*0.65 + 25, canvas.width*0.18, canvas.width*0.1);
     this.xPos -= runVel;
   }
 }
@@ -53,7 +53,7 @@ class singleLargeCactus{ //how to import
   moveForward(){
     context.fillStyle = "black"; //maybe redundant
     var singleLargeCactus = document.getElementById("singleLargeCactus");
-    context.drawImage(singleLargeCactus, this.xPos, canvas.height*0.61, canvas.width*0.08, canvas.width*0.14);
+    context.drawImage(singleLargeCactus, this.xPos, canvas.height*0.65 - 20, canvas.width*0.08, canvas.width*0.14);
     this.xPos -= runVel;
   }
 }
@@ -65,7 +65,7 @@ class doubleLargeCactus{ //how to import
   moveForward(){
     context.fillStyle = "black"; //maybe redundant
     var doubleLargeCactus = document.getElementById("doubleLargeCactus");
-    context.drawImage(doubleLargeCactus, this.xPos, canvas.height*0.61, canvas.width*0.16, canvas.width*0.14);
+    context.drawImage(doubleLargeCactus, this.xPos, canvas.height*0.65 - 20, canvas.width*0.16, canvas.width*0.14);
     this.xPos -= runVel;
   }
 }
@@ -77,7 +77,7 @@ class tripleLargeCactus{ //how to import
   moveForward(){
     context.fillStyle = "black"; //maybe redundant
     var tripleLargeCactus = document.getElementById("tripleLargeCactus");
-    context.drawImage(tripleLargeCactus, this.xPos, canvas.height*0.61, canvas.width*0.24, canvas.width*0.14);
+    context.drawImage(tripleLargeCactus, this.xPos, canvas.height*0.65 - 20, canvas.width*0.24, canvas.width*0.14);
     this.xPos -= runVel;
   }
 }
@@ -89,23 +89,33 @@ class tripleLargeCactus{ //how to import
 var dinoHeight = canvas.height*0.65;
 var dinoVel = 0;
 var isJumping = false;
+var distanceRan = 0;
 
 var gravity = 2;
 var jumpVel = 35;
 var runVel = 15;
-var cacti = [new singleSmallCactus(canvas.width*(4)), new singleSmallCactus(canvas.width*(3)), new singleSmallCactus(canvas.width*(2)), new singleSmallCactus(canvas.width*(1))];
+var cacti = [new singleSmallCactus(canvas.width*(4)), new singleSmallCactus(canvas.width*(3)), new singleSmallCactus(canvas.width*(2)), new singleSmallCactus(canvas.width*(1))]; //why no work otherwise
 var cactiOffset = [0, 0, 0, 0];
 var lastOffset = 0;
 var runningOne = true;
+var backgroundOnePos = 0;
+var backgroundTwoPos = 2400;
+
 
 function drawAll(){
   context.clearRect(0, 0, canvas.width, canvas.height);
   //ground
-  var grd = context.createLinearGradient(0, 0, 0, canvas.height);
-  grd.addColorStop(0, "black");
-  grd.addColorStop(1, "white");
-  context.fillStyle = grd;
-  context.fillRect(0, canvas.height*0.8, canvas.width, canvas.height);
+  var background = document.getElementById("background");
+  context.drawImage(background, backgroundOnePos, canvas.width*0.4, 2400, canvas.width*0.02);
+  context.drawImage(background, backgroundTwoPos, canvas.width*0.4, 2400, canvas.width*0.02);
+  backgroundOnePos -= runVel;
+  backgroundTwoPos -= runVel;
+  if (backgroundOnePos <= -2400){
+    backgroundOnePos = 2400;
+  }
+  if (backgroundTwoPos <= -2400){
+    backgroundTwoPos = 2400;
+  }
 
   context.fillStyle = "black";
   var dinoIdle = document.getElementById("dinoIdle");
@@ -121,8 +131,7 @@ function drawAll(){
     }
   }
   jump();
-
-  console.log("h");
+  incrementScore();
   for (var i = 0; i < cacti.length; i++) {
     cacti[i].moveForward();
     if (cacti[i].xPos <= canvas.width*(-0.5)){
@@ -133,6 +142,46 @@ function drawAll(){
   }
 
   window.requestAnimationFrame(drawAll);
+}
+
+function incrementScore(){
+  distanceRan += runVel;
+  runVel += 0.001;
+  score = Math.floor(distanceRan/120);
+  var ones = Math.floor(score%10);
+  var tens = Math.floor((score/10)%10);
+  var hundreds = Math.floor((score/100)%10);
+  var thousands = Math.floor((score/1000)%10);
+  var tenThousands = Math.floor((score/10000)%10);
+  context.drawImage(numberIdentifyer(ones), canvas.width*0.96, canvas.width*0.01, canvas.width*0.025, canvas.width*0.03);
+  context.drawImage(numberIdentifyer(tens), canvas.width*0.92, canvas.width*0.01, canvas.width*0.025, canvas.width*0.03);
+  context.drawImage(numberIdentifyer(hundreds), canvas.width*0.88, canvas.width*0.01, canvas.width*0.025, canvas.width*0.03);
+  context.drawImage(numberIdentifyer(thousands), canvas.width*0.84, canvas.width*0.01, canvas.width*0.025, canvas.width*0.03);
+  context.drawImage(numberIdentifyer(tenThousands), canvas.width*0.8, canvas.width*0.01, canvas.width*0.025, canvas.width*0.03);
+}
+
+function numberIdentifyer(num){
+  if (num==0){
+    return document.getElementById("zero");
+  }else if (num==1){
+    return document.getElementById("one");
+  }else if (num==2){
+    return document.getElementById("two");
+  }else if (num==3){
+    return document.getElementById("three");
+  }else if (num==4){
+    return document.getElementById("four");
+  }else if (num==5){
+    return document.getElementById("five");
+  }else if (num==6){
+    return document.getElementById("six");
+  }else if (num==7){
+    return document.getElementById("seven");
+  }else if (num==8){
+    return document.getElementById("eight");
+  }else if (num==9){
+    return document.getElementById("nine");
+  }
 }
 
 var obstaclesChoices = ["singleSmallCactus", "doubleSmallCactus", "tripleSmallCactus", "singleLargeCactus", "doubleLargeCactus", "tripleLargeCactus"];
