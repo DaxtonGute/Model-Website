@@ -1,6 +1,5 @@
 windowWidth = window.innerWidth;
 windowHeight = window.innerHeight;
-console.log("Window is %d by %d", windowWidth, windowHeight);
 
 canvas = document.getElementById("dinoGame");
 canvas.width = windowWidth - 25;
@@ -94,9 +93,10 @@ var isJumping = false;
 var gravity = 2;
 var jumpVel = 35;
 var runVel = 15;
-var cacti = [new singleSmallCactus(canvas.width*1), new singleSmallCactus(canvas.width*2), new singleSmallCactus(canvas.width*3), new singleSmallCactus(canvas.width*4)];
+var cacti = [new singleSmallCactus(canvas.width*(4)), new singleSmallCactus(canvas.width*(3)), new singleSmallCactus(canvas.width*(2)), new singleSmallCactus(canvas.width*(1))];
 var cactiOffset = [0, 0, 0, 0];
 var lastOffset = 0;
+var runningOne = true;
 
 function drawAll(){
   context.clearRect(0, 0, canvas.width, canvas.height);
@@ -108,14 +108,26 @@ function drawAll(){
   context.fillRect(0, canvas.height*0.8, canvas.width, canvas.height);
 
   context.fillStyle = "black";
-  var dino_character = document.getElementById("dino");
-  context.drawImage(dino_character, canvas.width*0.1, dinoHeight, canvas.width*0.12, canvas.width*0.12);
+  var dinoIdle = document.getElementById("dinoIdle");
+  if (isJumping){
+    context.drawImage(dinoIdle, canvas.width*0.1, dinoHeight, canvas.width*0.12, canvas.width*0.12);
+  }else{
+    if (runningOne){
+      context.drawImage(dinoRunningOne, canvas.width*0.1, dinoHeight, canvas.width*0.12, canvas.width*0.12);
+      runningOne = false;
+    }else{
+      context.drawImage(dinoRunningTwo, canvas.width*0.1, dinoHeight, canvas.width*0.12, canvas.width*0.12);
+      runningOne = true;
+    }
+  }
   jump();
+
+  console.log("h");
   for (var i = 0; i < cacti.length; i++) {
     cacti[i].moveForward();
     if (cacti[i].xPos <= canvas.width*(-0.5)){
       var offset =(Math.random()-0.5)*canvas.width*(0.5)
-      cacti[i] = new tripleLargeCactus(canvas.width*(4.5) - cactiOffset[i] + offset);
+      cacti[i] = spawnRandomObstacle(cactiOffset[i], offset, i);
       cactiOffset[i] = offset;
     }
   }
@@ -123,15 +135,27 @@ function drawAll(){
   window.requestAnimationFrame(drawAll);
 }
 
-var choices = ["singleSmallCactus", "doubleSmallCactus", "tripleSmallCactus", "singleLargeCactus", doubleSmallCactus]
-function spawnRandomCactus(){
-  var offset =(Math.random()-0.5)*canvas.width*(0.5);
-
-  cactiOffset[i] = offset;
+var obstaclesChoices = ["singleSmallCactus", "doubleSmallCactus", "tripleSmallCactus", "singleLargeCactus", "doubleLargeCactus", "tripleLargeCactus"];
+function spawnRandomObstacle(previousOffset, offset){ //do it based off score
+  var choice = obstaclesChoices[Math.floor(Math.random() * obstaclesChoices.length)];
+  if (choice == "singleSmallCactus"){
+    return new singleSmallCactus(canvas.width*(4.5) - previousOffset + offset);
+  }else if (choice == "doubleSmallCactus") {
+    return new doubleSmallCactus(canvas.width*(4.5) - previousOffset + offset);
+  }else if (choice == "tripleSmallCactus") {
+     return new tripleSmallCactus(canvas.width*(4.5) - previousOffset + offset);
+  }else if (choice == "singleLargeCactus") {
+    return new singleLargeCactus(canvas.width*(4.5) - previousOffset + offset);
+  }else if (choice == "doubleLargeCactus") {
+    return new doubleLargeCactus(canvas.width*(4.5) - previousOffset + offset);
+  }else if (choice == "tripleLargeCactus") {
+    return new tripleLargeCactus(canvas.width*(4.5) - previousOffset + offset);
+  }else{
+    console.log("whoops");
+  }
 }
 
 function jump () {
-  console.log("help");
   if(isJumping){
     var i = 0;
     dinoHeight -= dinoVel;
