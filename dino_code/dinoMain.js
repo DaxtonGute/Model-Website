@@ -13,11 +13,14 @@ window.requestAnimationFrame(drawAll);
 class singleSmallCactus{ //how to import
   constructor(xPos) {
    this.xPos = xPos;
+   this.yPos = canvas.height*0.65 + 25;
+   this.width = canvas.width*0.06;
+   this.height = canvas.width*0.1;
   }
   moveForward(){
     context.fillStyle = "black"; //maybe redundant
     var singleSmallCactus = document.getElementById("singleSmallCactus");
-    context.drawImage(singleSmallCactus, this.xPos, canvas.height*0.65 + 25, canvas.width*0.06, canvas.width*0.1);
+    context.drawImage(singleSmallCactus, this.xPos, this.yPos, this.width, this.height);
     this.xPos -= runVel;
   }
 }
@@ -25,11 +28,14 @@ class singleSmallCactus{ //how to import
 class doubleSmallCactus{ //how to import
   constructor(xPos) {
    this.xPos = xPos;
+   this.yPos = canvas.height*0.65 + 25;
+   this.width = canvas.width*0.12;
+   this.height = canvas.width*0.1;
   }
   moveForward(){
     context.fillStyle = "black"; //maybe redundant
     var doubleSmallCactus = document.getElementById("doubleSmallCactus");
-    context.drawImage(doubleSmallCactus, this.xPos, canvas.height*0.65 + 25, canvas.width*0.12, canvas.width*0.1);
+    context.drawImage(doubleSmallCactus, this.xPos, this.yPos, this.width, this.height);
     this.xPos -= runVel;
   }
 }
@@ -37,11 +43,14 @@ class doubleSmallCactus{ //how to import
 class tripleSmallCactus{ //how to import
   constructor(xPos) {
    this.xPos = xPos;
+   this.yPos = canvas.height*0.65 + 25;
+   this.width = canvas.width*0.18;
+   this.height = canvas.width*0.1;
   }
   moveForward(){
     context.fillStyle = "black"; //maybe redundant
     var tripleSmallCactus = document.getElementById("tripleSmallCactus");
-    context.drawImage(tripleSmallCactus, this.xPos, canvas.height*0.65 + 25, canvas.width*0.18, canvas.width*0.1);
+    context.drawImage(tripleSmallCactus, this.xPos, this.yPos, this.width, this.height);
     this.xPos -= runVel;
   }
 }
@@ -49,11 +58,14 @@ class tripleSmallCactus{ //how to import
 class singleLargeCactus{ //how to import
   constructor(xPos) {
    this.xPos = xPos;
+   this.yPos = canvas.height*0.65 - 20;
+   this.width = canvas.width*0.08;
+   this.height = canvas.width*0.14;
   }
   moveForward(){
     context.fillStyle = "black"; //maybe redundant
     var singleLargeCactus = document.getElementById("singleLargeCactus");
-    context.drawImage(singleLargeCactus, this.xPos, canvas.height*0.65 - 20, canvas.width*0.08, canvas.width*0.14);
+    context.drawImage(singleLargeCactus, this.xPos, this.yPos, this.width, this.height);
     this.xPos -= runVel;
   }
 }
@@ -61,11 +73,14 @@ class singleLargeCactus{ //how to import
 class doubleLargeCactus{ //how to import
   constructor(xPos) {
    this.xPos = xPos;
+   this.yPos = canvas.height*0.65 - 20;
+   this.width = canvas.width*0.16;
+   this.height = canvas.width*0.14;
   }
   moveForward(){
     context.fillStyle = "black"; //maybe redundant
     var doubleLargeCactus = document.getElementById("doubleLargeCactus");
-    context.drawImage(doubleLargeCactus, this.xPos, canvas.height*0.65 - 20, canvas.width*0.16, canvas.width*0.14);
+    context.drawImage(doubleLargeCactus, this.xPos, this.yPos, this.width, this.height);
     this.xPos -= runVel;
   }
 }
@@ -73,11 +88,14 @@ class doubleLargeCactus{ //how to import
 class tripleLargeCactus{ //how to import
   constructor(xPos) {
    this.xPos = xPos;
+   this.yPos = canvas.height*0.65 - 20;
+   this.width = canvas.width*0.24;
+   this.height = canvas.width*0.14;
   }
   moveForward(){
     context.fillStyle = "black"; //maybe redundant
     var tripleLargeCactus = document.getElementById("tripleLargeCactus");
-    context.drawImage(tripleLargeCactus, this.xPos, canvas.height*0.65 - 20, canvas.width*0.24, canvas.width*0.14);
+    context.drawImage(tripleLargeCactus, this.xPos, this.yPos, this.width, this.height);
     this.xPos -= runVel;
   }
 }
@@ -111,7 +129,7 @@ function drawAll(){
   backgroundOnePos -= runVel;
   backgroundTwoPos -= runVel;
   if (backgroundOnePos <= -2400){
-    backgroundOnePos = 2400;
+    backgroundOnePos = 2400;//there is gap ahhhhh
   }
   if (backgroundTwoPos <= -2400){
     backgroundTwoPos = 2400;
@@ -141,7 +159,29 @@ function drawAll(){
     }
   }
 
+
+  if (checkCollisions()){
+    alert("fail");
+  }
   window.requestAnimationFrame(drawAll);
+}
+
+function checkCollisions(){
+  var failed = false;
+  for (var i = 0; i < cacti.length; i++) {
+    if (cacti[i].xPos <= canvas.width*0.14 && canvas.width*0.14 <= cacti[i].xPos + cacti[i].width){ //senses if back side of dinosaur
+      if (cacti[i].yPos <= dinoHeight + canvas.width*0.08  && dinoHeight + canvas.width*0.08 <= cacti[i].yPos + cacti[i].height){ //senses bottom side of dinosaur
+        failed = true;
+      }
+    }
+
+    if (cacti[i].xPos <= canvas.width*0.18 && canvas.width*0.18 <= cacti[i].xPos + cacti[i].width){ //senses if front side of dinosaur
+      if (cacti[i].yPos <= dinoHeight + canvas.width*0.08  && dinoHeight + canvas.width*0.08 <= cacti[i].yPos + cacti[i].height){ //senses bottom side of dinosaur
+        failed = true;
+      }
+    }
+  }
+  return failed;
 }
 
 function incrementScore(){
