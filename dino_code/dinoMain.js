@@ -25,6 +25,7 @@ var cacti = [spawnRandomObstacle(canvas.width*(3.5), 0), spawnRandomObstacle(can
 var cactiOffset = [0, 0, 0, 0];
 var lastOffset = 0;
 var runningOne = true;
+var framesInBetween = 0;
 var backgroundOnePos = 0;
 var backgroundTwoPos = 2400;
 var gameOverCheck = false;
@@ -32,8 +33,8 @@ var resetCheck = false;
 
 
 function drawAll(){
+  context.clearRect(0, 0, canvas.width, canvas.height);
   if(gameOverCheck == false){
-    context.clearRect(0, 0, canvas.width, canvas.height);
     //ground
     var background = document.getElementById("background");
     context.drawImage(background, backgroundOnePos, canvas.width*0.4, 2400, canvas.width*0.02);
@@ -54,15 +55,26 @@ function drawAll(){
     }else{
       if (runningOne){
         context.drawImage(dinoRunningOne, canvas.width*0.1, dinoHeight, canvas.width*0.12, canvas.width*0.12);
-        runningOne = false;
+        if(framesInBetween > 5){
+          runningOne = false;
+          framesInBetween = 0;
+        }
+        framesInBetween ++;
       }else{
         context.drawImage(dinoRunningTwo, canvas.width*0.1, dinoHeight, canvas.width*0.12, canvas.width*0.12);
-        runningOne = true;
+        if(framesInBetween > 5){
+          runningOne = true;
+          framesInBetween = 0;
+        }
+        framesInBetween ++;
       }
     }
     jump();
-    incrementScore();
+    distanceRan += runVel;
+    runVel += 0.001;
+    displayScore();
     for (var i = 0; i < cacti.length; i++) {
+      cacti[i].draw();
       cacti[i].moveForward();
       if (cacti[i].xPos <= canvas.width*(-0.5)){
         var offset =(Math.random()-0.5)*canvas.width*(0.5)
@@ -72,6 +84,17 @@ function drawAll(){
     }
     resetCheck = false;
   }else{
+    //redraw everything but don't move
+    var background = document.getElementById("background");
+    context.drawImage(background, backgroundOnePos, canvas.width*0.4, 2400, canvas.width*0.02);
+    context.drawImage(background, backgroundTwoPos, canvas.width*0.4, 2400, canvas.width*0.02);
+    var dinoDead = document.getElementById("dinoDead");
+    context.drawImage(dinoDead, canvas.width*0.1, dinoHeight, canvas.width*0.12, canvas.width*0.12);
+    for (var i = 0; i < cacti.length; i++) {
+      cacti[i].draw();
+    }
+    displayScore();
+
     var gameOver = document.getElementById("gameOver");
     var restartButton = document.getElementById("restartButton");
     context.drawImage(gameOver, canvas.width*0.25, canvas.width*0.2, canvas.width*0.5, canvas.width*0.05);
@@ -125,9 +148,7 @@ function checkCollisions(){
   return failed;
 }
 
-function incrementScore(){
-  distanceRan += runVel;
-  runVel += 0.001;
+function displayScore(){
   score = Math.floor(distanceRan/120);
   var scoreOnes = Math.floor(score%10);
   var scoreTens = Math.floor((score/10)%10);
