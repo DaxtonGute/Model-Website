@@ -1,174 +1,115 @@
+canvas = document.getElementById("dinoGame");
 windowWidth = window.innerWidth;
 windowHeight = window.innerHeight;
-
-canvas = document.getElementById("dinoGame");
 canvas.width = windowWidth - 25;
 canvas.height = windowHeight - 25;
 canvas.style.border = "1px solid black";
 
 context = canvas.getContext("2d");
 document.addEventListener("keydown", myKeyDown);
+document.addEventListener("mousedown", getCursorPosition);
 window.requestAnimationFrame(drawAll);
 
-class singleSmallCactus{ //how to import
-  constructor(xPos) {
-   this.xPos = xPos;
-   this.yPos = canvas.height*0.65 + 25;
-   this.width = canvas.width*0.06;
-   this.height = canvas.width*0.1;
-  }
-  moveForward(){
-    context.fillStyle = "black"; //maybe redundant
-    var singleSmallCactus = document.getElementById("singleSmallCactus");
-    context.drawImage(singleSmallCactus, this.xPos, this.yPos, this.width, this.height);
-    this.xPos -= runVel;
-  }
-}
-
-class doubleSmallCactus{ //how to import
-  constructor(xPos) {
-   this.xPos = xPos;
-   this.yPos = canvas.height*0.65 + 25;
-   this.width = canvas.width*0.12;
-   this.height = canvas.width*0.1;
-  }
-  moveForward(){
-    context.fillStyle = "black"; //maybe redundant
-    var doubleSmallCactus = document.getElementById("doubleSmallCactus");
-    context.drawImage(doubleSmallCactus, this.xPos, this.yPos, this.width, this.height);
-    this.xPos -= runVel;
-  }
-}
-
-class tripleSmallCactus{ //how to import
-  constructor(xPos) {
-   this.xPos = xPos;
-   this.yPos = canvas.height*0.65 + 25;
-   this.width = canvas.width*0.18;
-   this.height = canvas.width*0.1;
-  }
-  moveForward(){
-    context.fillStyle = "black"; //maybe redundant
-    var tripleSmallCactus = document.getElementById("tripleSmallCactus");
-    context.drawImage(tripleSmallCactus, this.xPos, this.yPos, this.width, this.height);
-    this.xPos -= runVel;
-  }
-}
-
-class singleLargeCactus{ //how to import
-  constructor(xPos) {
-   this.xPos = xPos;
-   this.yPos = canvas.height*0.65 - 20;
-   this.width = canvas.width*0.08;
-   this.height = canvas.width*0.14;
-  }
-  moveForward(){
-    context.fillStyle = "black"; //maybe redundant
-    var singleLargeCactus = document.getElementById("singleLargeCactus");
-    context.drawImage(singleLargeCactus, this.xPos, this.yPos, this.width, this.height);
-    this.xPos -= runVel;
-  }
-}
-
-class doubleLargeCactus{ //how to import
-  constructor(xPos) {
-   this.xPos = xPos;
-   this.yPos = canvas.height*0.65 - 20;
-   this.width = canvas.width*0.16;
-   this.height = canvas.width*0.14;
-  }
-  moveForward(){
-    context.fillStyle = "black"; //maybe redundant
-    var doubleLargeCactus = document.getElementById("doubleLargeCactus");
-    context.drawImage(doubleLargeCactus, this.xPos, this.yPos, this.width, this.height);
-    this.xPos -= runVel;
-  }
-}
-
-class tripleLargeCactus{ //how to import
-  constructor(xPos) {
-   this.xPos = xPos;
-   this.yPos = canvas.height*0.65 - 20;
-   this.width = canvas.width*0.24;
-   this.height = canvas.width*0.14;
-  }
-  moveForward(){
-    context.fillStyle = "black"; //maybe redundant
-    var tripleLargeCactus = document.getElementById("tripleLargeCactus");
-    context.drawImage(tripleLargeCactus, this.xPos, this.yPos, this.width, this.height);
-    this.xPos -= runVel;
-  }
-}
-
-
-
-
-
+var obstaclesChoices = ["singleSmallCactus", "doubleSmallCactus", "tripleSmallCactus", "singleLargeCactus", "doubleLargeCactus", "tripleLargeCactus"];
 var dinoHeight = canvas.height*0.65;
 var dinoVel = 0;
 var isJumping = false;
 var distanceRan = 0;
+var score = 0;
+var highScore = 0;
 
 var gravity = 2;
 var jumpVel = 35;
 var runVel = 15;
-var cacti = [new singleSmallCactus(canvas.width*(4)), new singleSmallCactus(canvas.width*(3)), new singleSmallCactus(canvas.width*(2)), new singleSmallCactus(canvas.width*(1))]; //why no work otherwise
+var cacti = [spawnRandomObstacle(canvas.width*(3.5), 0), spawnRandomObstacle(canvas.width*(2.5), 0), spawnRandomObstacle(canvas.width*(1.5), 0), spawnRandomObstacle(canvas.width*(0.5), 0)]; //now I can repleace
 var cactiOffset = [0, 0, 0, 0];
 var lastOffset = 0;
 var runningOne = true;
 var backgroundOnePos = 0;
 var backgroundTwoPos = 2400;
+var gameOverCheck = false;
+var resetCheck = false;
 
 
 function drawAll(){
-  context.clearRect(0, 0, canvas.width, canvas.height);
-  //ground
-  var background = document.getElementById("background");
-  context.drawImage(background, backgroundOnePos, canvas.width*0.4, 2400, canvas.width*0.02);
-  context.drawImage(background, backgroundTwoPos, canvas.width*0.4, 2400, canvas.width*0.02);
-  backgroundOnePos -= runVel;
-  backgroundTwoPos -= runVel;
-  if (backgroundOnePos <= -2400){
-    backgroundOnePos = 2400;//there is gap ahhhhh
-  }
-  if (backgroundTwoPos <= -2400){
-    backgroundTwoPos = 2400;
-  }
+  if(gameOverCheck == false){
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    //ground
+    var background = document.getElementById("background");
+    context.drawImage(background, backgroundOnePos, canvas.width*0.4, 2400, canvas.width*0.02);
+    context.drawImage(background, backgroundTwoPos, canvas.width*0.4, 2400, canvas.width*0.02);
+    backgroundOnePos -= runVel;
+    backgroundTwoPos -= runVel;
+    if (backgroundOnePos <= -2400){
+      backgroundOnePos = 2400;//there is gap ahhhhh
+    }
+    if (backgroundTwoPos <= -2400){
+      backgroundTwoPos = 2400;
+    }
 
-  context.fillStyle = "black";
-  var dinoIdle = document.getElementById("dinoIdle");
-  if (isJumping){
-    context.drawImage(dinoIdle, canvas.width*0.1, dinoHeight, canvas.width*0.12, canvas.width*0.12);
-  }else{
-    if (runningOne){
-      context.drawImage(dinoRunningOne, canvas.width*0.1, dinoHeight, canvas.width*0.12, canvas.width*0.12);
-      runningOne = false;
+    context.fillStyle = "black";
+    var dinoIdle = document.getElementById("dinoIdle");
+    if (isJumping){
+      context.drawImage(dinoIdle, canvas.width*0.1, dinoHeight, canvas.width*0.12, canvas.width*0.12);
     }else{
-      context.drawImage(dinoRunningTwo, canvas.width*0.1, dinoHeight, canvas.width*0.12, canvas.width*0.12);
-      runningOne = true;
+      if (runningOne){
+        context.drawImage(dinoRunningOne, canvas.width*0.1, dinoHeight, canvas.width*0.12, canvas.width*0.12);
+        runningOne = false;
+      }else{
+        context.drawImage(dinoRunningTwo, canvas.width*0.1, dinoHeight, canvas.width*0.12, canvas.width*0.12);
+        runningOne = true;
+      }
+    }
+    jump();
+    incrementScore();
+    for (var i = 0; i < cacti.length; i++) {
+      cacti[i].moveForward();
+      if (cacti[i].xPos <= canvas.width*(-0.5)){
+        var offset =(Math.random()-0.5)*canvas.width*(0.5)
+        cacti[i] = spawnRandomObstacle(cactiOffset[i], offset);
+        cactiOffset[i] = offset;
+      }
+    }
+    resetCheck = false;
+  }else{
+    var gameOver = document.getElementById("gameOver");
+    var restartButton = document.getElementById("restartButton");
+    context.drawImage(gameOver, canvas.width*0.25, canvas.width*0.2, canvas.width*0.5, canvas.width*0.05);
+    context.drawImage(restartButton, canvas.width*0.47, canvas.width*0.26, canvas.width*0.06, canvas.width*0.06);
+    if(score > highScore){
+      highScore = score;
+    }
+    if (resetCheck){
+      reset();
     }
   }
-  jump();
-  incrementScore();
-  for (var i = 0; i < cacti.length; i++) {
-    cacti[i].moveForward();
-    if (cacti[i].xPos <= canvas.width*(-0.5)){
-      var offset =(Math.random()-0.5)*canvas.width*(0.5)
-      cacti[i] = spawnRandomObstacle(cactiOffset[i], offset, i);
-      cactiOffset[i] = offset;
-    }
-  }
-
 
   if (checkCollisions()){
-    alert("fail");
+    gameOverCheck = true;
   }
   window.requestAnimationFrame(drawAll);
 }
 
+function reset(){
+  cacti = [spawnRandomObstacle(canvas.width*(3.5), 0), spawnRandomObstacle(canvas.width*(2.5), 0), spawnRandomObstacle(canvas.width*(1.5), 0), spawnRandomObstacle(canvas.width*(0.5), 0)];
+  dinoVel = 0;
+  isJumping = false;
+  distanceRan = 0;
+  cactiOffset = [0, 0, 0, 0];
+  lastOffset = 0;
+  runningOne = true;
+  backgroundOnePos = 0;
+  backgroundTwoPos = 2400;
+  gameOverCheck = false;
+  resetCheck = false;
+  score = 0;
+  runVel = 15;
+  dinoHeight = canvas.height*0.65;
+}
+
 function checkCollisions(){
   var failed = false;
-  for (var i = 0; i < cacti.length; i++) {
+  for (var i = 0; i < 4; i++) {
     if (cacti[i].xPos <= canvas.width*0.14 && canvas.width*0.14 <= cacti[i].xPos + cacti[i].width){ //senses if back side of dinosaur
       if (cacti[i].yPos <= dinoHeight + canvas.width*0.08  && dinoHeight + canvas.width*0.08 <= cacti[i].yPos + cacti[i].height){ //senses bottom side of dinosaur
         failed = true;
@@ -188,16 +129,30 @@ function incrementScore(){
   distanceRan += runVel;
   runVel += 0.001;
   score = Math.floor(distanceRan/120);
-  var ones = Math.floor(score%10);
-  var tens = Math.floor((score/10)%10);
-  var hundreds = Math.floor((score/100)%10);
-  var thousands = Math.floor((score/1000)%10);
-  var tenThousands = Math.floor((score/10000)%10);
-  context.drawImage(numberIdentifyer(ones), canvas.width*0.96, canvas.width*0.01, canvas.width*0.025, canvas.width*0.03);
-  context.drawImage(numberIdentifyer(tens), canvas.width*0.92, canvas.width*0.01, canvas.width*0.025, canvas.width*0.03);
-  context.drawImage(numberIdentifyer(hundreds), canvas.width*0.88, canvas.width*0.01, canvas.width*0.025, canvas.width*0.03);
-  context.drawImage(numberIdentifyer(thousands), canvas.width*0.84, canvas.width*0.01, canvas.width*0.025, canvas.width*0.03);
-  context.drawImage(numberIdentifyer(tenThousands), canvas.width*0.8, canvas.width*0.01, canvas.width*0.025, canvas.width*0.03);
+  var scoreOnes = Math.floor(score%10);
+  var scoreTens = Math.floor((score/10)%10);
+  var scoreHundreds = Math.floor((score/100)%10);
+  var scoreThousands = Math.floor((score/1000)%10);
+  var scoreTenThousands = Math.floor((score/10000)%10);
+  context.drawImage(numberIdentifyer(scoreOnes), canvas.width*0.96, canvas.width*0.01, canvas.width*0.025, canvas.width*0.03);
+  context.drawImage(numberIdentifyer(scoreTens), canvas.width*0.93, canvas.width*0.01, canvas.width*0.025, canvas.width*0.03);
+  context.drawImage(numberIdentifyer(scoreHundreds), canvas.width*0.9, canvas.width*0.01, canvas.width*0.025, canvas.width*0.03);
+  context.drawImage(numberIdentifyer(scoreThousands), canvas.width*0.87, canvas.width*0.01, canvas.width*0.025, canvas.width*0.03);
+  context.drawImage(numberIdentifyer(scoreTenThousands), canvas.width*0.84, canvas.width*0.01, canvas.width*0.025, canvas.width*0.03);
+  if(highScore!= 0){ //not super efficient
+    var hiOnes = Math.floor(highScore%10);
+    var hiTens = Math.floor((highScore/10)%10);
+    var hiHundreds = Math.floor((highScore/100)%10);
+    var hiThousands = Math.floor((highScore/1000)%10);
+    var hiTenThousands = Math.floor((highScore/10000)%10);
+    context.drawImage(numberIdentifyer(hiOnes), canvas.width*0.78, canvas.width*0.01, canvas.width*0.025, canvas.width*0.03);
+    context.drawImage(numberIdentifyer(hiTens), canvas.width*0.75, canvas.width*0.01, canvas.width*0.025, canvas.width*0.03);
+    context.drawImage(numberIdentifyer(hiHundreds), canvas.width*0.72, canvas.width*0.01, canvas.width*0.025, canvas.width*0.03);
+    context.drawImage(numberIdentifyer(hiThousands), canvas.width*0.69, canvas.width*0.01, canvas.width*0.025, canvas.width*0.03);
+    context.drawImage(numberIdentifyer(hiTenThousands), canvas.width*0.66, canvas.width*0.01, canvas.width*0.025, canvas.width*0.03);
+    var hiTag = document.getElementById("hiTag");
+    context.drawImage(hiTag, canvas.width*0.6, canvas.width*0.01, canvas.width*0.03, canvas.width*0.03);
+  }
 }
 
 function numberIdentifyer(num){
@@ -224,7 +179,6 @@ function numberIdentifyer(num){
   }
 }
 
-var obstaclesChoices = ["singleSmallCactus", "doubleSmallCactus", "tripleSmallCactus", "singleLargeCactus", "doubleLargeCactus", "tripleLargeCactus"];
 function spawnRandomObstacle(previousOffset, offset){ //do it based off score
   var choice = obstaclesChoices[Math.floor(Math.random() * obstaclesChoices.length)];
   if (choice == "singleSmallCactus"){
@@ -271,5 +225,15 @@ function myKeyDown (event) {
     }
   }
 }
+
+function getCursorPosition(event) {
+    var rect = canvas.getBoundingClientRect();
+    var x = event.clientX - rect.left;
+    var y = event.clientY - rect.top;
+    if((canvas.width*0.47 <= x <= canvas.width*0.53)&&(canvas.width*0.26 <= y <= canvas.width*0.32)){
+      resetCheck = true;
+    }
+}
+
 
 //three small-cactus, double small, single small cactus, single large cactus, double large cactus, four cactus patch, low-flyer, medium-flyer, high-flyer
