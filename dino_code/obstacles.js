@@ -102,15 +102,12 @@ class flyer extends obstacle{
    this.framesSince = 0;
   }
   draw(){
-    console.log('help');
     context.fillStyle = "black"; //maybe redundant
     var flyerOne = document.getElementById("flyerOne");
     var flyerTwo = document.getElementById("flyerTwo");
     if((this.framesSince%16) < 8){
-      console.log('help2');
       context.drawImage(flyerOne, this.xPos, this.yPos, this.width, this.height);
     }else{
-      console.log('help3');
       context.drawImage(flyerTwo, this.xPos, this.yPos, this.width, this.height);
     }
     if(this.animated){

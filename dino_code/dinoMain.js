@@ -8,6 +8,7 @@ canvas.style.border = "1px solid black";
 context = canvas.getContext("2d");
 document.addEventListener("keydown", myKeyDown);
 document.addEventListener("mousedown", getCursorPosition);
+document.addEventListener("keyup", myKeyUp);
 window.requestAnimationFrame(drawAll);
 
 var obstaclesChoices = ["singleSmallCactus", "doubleSmallCactus", "tripleSmallCactus", "singleLargeCactus", "doubleLargeCactus", "tripleLargeCactus", "lowFlyer", "midFlyer", "highFlyer"];
@@ -15,6 +16,7 @@ var clouds = [];
 var dinoHeight = canvas.height*0.65;
 var dinoVel = 0;
 var isJumping = false;
+var isDucking = false;
 var distanceRan = 0;
 var score = 0;
 var highScore = 0;
@@ -26,6 +28,7 @@ var cacti = [spawnRandomObstacle(canvas.width*(3.5), 0), spawnRandomObstacle(can
 var cactiOffset = [0, 0, 0, 0];
 var lastOffset = 0;
 var runningOne = true;
+var duckingOne = true;
 var framesInBetween = 0;
 var backgroundOnePos = 0;
 var backgroundTwoPos = 2400;
@@ -53,6 +56,22 @@ function drawAll(){
     var dinoIdle = document.getElementById("dinoIdle");
     if (isJumping){
       context.drawImage(dinoIdle, canvas.width*0.1, dinoHeight, canvas.width*0.12, canvas.width*0.12);
+    }else if(isDucking){
+      if(duckingOne){
+        context.drawImage(dinoDuckingOne, canvas.width*0.1, dinoHeight + canvas.width*0.04, canvas.width*0.16, canvas.width*0.08);
+        if(framesInBetween > 4){
+          duckingOne = false;
+          framesInBetween = 0;
+        }
+        framesInBetween ++;
+      }else{
+        context.drawImage(dinoDuckingTwo, canvas.width*0.1, dinoHeight + canvas.width*0.04, canvas.width*0.16, canvas.width*0.08);
+        if(framesInBetween > 4){
+          duckingOne = true;
+          framesInBetween = 0;
+        }
+        framesInBetween ++;
+      }
     }else{
       if (runningOne){
         context.drawImage(dinoRunningOne, canvas.width*0.1, dinoHeight, canvas.width*0.12, canvas.width*0.12);
@@ -112,7 +131,6 @@ function drawAll(){
     if(score > highScore){
       highScore = score;
     }
-
     if (resetCheck){
       reset();
     }
@@ -144,6 +162,7 @@ function reset(){
   cacti = [spawnRandomObstacle(canvas.width*(3.5), 0), spawnRandomObstacle(canvas.width*(2.5), 0), spawnRandomObstacle(canvas.width*(1.5), 0), spawnRandomObstacle(canvas.width*(0.5), 0)];
   dinoVel = 0;
   isJumping = false;
+  isDucking = false;
   distanceRan = 0;
   cactiOffset = [0, 0, 0, 0];
   lastOffset = 0;
@@ -159,20 +178,27 @@ function reset(){
 }
 
 function checkCollisions(){
+  var headBuffer = canvas.width*0.02;
+  var frontBuffer = canvas.width*0.18;
+  if (isDucking){
+    headBuffer = canvas.width*0.07;
+    frontBuffer = canvas.width*0.22;
+  }
+
   var failed = false;
   for (var i = 0; i < 4; i++) {
     if (cacti[i].xPos <= canvas.width*0.14 && canvas.width*0.14 <= cacti[i].xPos + cacti[i].width){ //senses if back side of dinosaur
       if (cacti[i].yPos <= dinoHeight + canvas.width*0.08  && dinoHeight + canvas.width*0.08 <= cacti[i].yPos + cacti[i].height){ //senses bottom side of dinosaur
         failed = true;
-      }else if (cacti[i].yPos <= dinoHeight + canvas.width*0.02 && dinoHeight + canvas.width*0.02 <= cacti[i].yPos + cacti[i].height){ //senses top side of dinosaur
+      }else if (cacti[i].yPos <= dinoHeight + headBuffer && dinoHeight + headBuffer <= cacti[i].yPos + cacti[i].height){ //senses top side of dinosaur
         failed = true;
       }
     }
 
-    if (cacti[i].xPos <= canvas.width*0.18 && canvas.width*0.18 <= cacti[i].xPos + cacti[i].width){ //senses if front side of dinosaur
+    if (cacti[i].xPos <= frontBuffer && frontBuffer <= cacti[i].xPos + cacti[i].width){ //senses if front side of dinosaur
       if (cacti[i].yPos <= dinoHeight + canvas.width*0.08  && dinoHeight + canvas.width*0.08 <= cacti[i].yPos + cacti[i].height){ //senses bottom side of dinosaur
         failed = true;
-      }else if (cacti[i].yPos <= dinoHeight + canvas.width*0.02 && dinoHeight + canvas.width*0.02 <= cacti[i].yPos + cacti[i].height){ //senses top side of dinosaur
+      }else if (cacti[i].yPos <= dinoHeight + headBuffer && dinoHeight + headBuffer <= cacti[i].yPos + cacti[i].height){ //senses top side of dinosaur
         failed = true;
       }
     }
@@ -270,21 +296,38 @@ function jump () {
   }
 }
 
+var start;
 function myKeyDown (event) {
   keyCode = event.which;
   keyStr = event.key;
-  console.log(event);
-  console.log(keyCode);
-  console.log(keyStr);
-
-  if (keyCode == 32) {
+  if (keyCode == 32 || keyCode == 38){
     if(!isJumping){
       dinoVel = jumpVel;
       isJumping = true;
+      start = new Date().getTime();
     }
+  }else if(keyCode == 40){
+    gravity = 2.5;
+    isDucking = true;
   }
 }
 
+var end;
+function myKeyUp (event) {
+  keyCode = event.which;
+  keyStr = event.key;
+  if (keyCode == 32 || keyCode == 38){
+    end = new Date().getTime();
+    if(end-start < 100){
+      dinoVel = jumpVel - 15;
+    }
+  }else if(keyCode == 40){
+    gravity = 2;
+    isDucking = false;
+  }
+}
+
+var end;
 function getCursorPosition(event) {
     var rect = canvas.getBoundingClientRect();
     var x = event.clientX - rect.left;
