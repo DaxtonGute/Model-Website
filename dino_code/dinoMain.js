@@ -288,6 +288,7 @@ function jump () {
     var i = 0;
     dinoHeight -= dinoVel;
     if(dinoHeight >= canvas.height*0.65){
+      dinoHeight = canvas.height*0.65;
       isJumping = false;
       dinoVel = 0;
     }else{
@@ -307,7 +308,7 @@ function myKeyDown (event) {
       start = new Date().getTime();
     }
   }else if(keyCode == 40){
-    gravity = 2.5;
+    gravity = 5;
     isDucking = true;
   }
 }
@@ -327,12 +328,12 @@ function myKeyUp (event) {
   }
 }
 
-var end;
 function getCursorPosition(event) {
     var rect = canvas.getBoundingClientRect();
     var x = event.clientX - rect.left;
     var y = event.clientY - rect.top;
     if((canvas.width*0.47 <= x <= canvas.width*0.53)&&(canvas.width*0.26 <= y <= canvas.width*0.32)){
+      console.log('hel');
       resetCheck = true;
     }
 }
