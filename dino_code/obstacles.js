@@ -148,3 +148,20 @@ class highFlyer extends flyer{ //how to import
    super(xPos, canvas.height*0.65 - 225);
   }
 }
+
+class cloud{
+  constructor(xPos) {
+   this.xPos = canvas.width;
+   this.yPos = Math.random()*canvas.width*0.36;
+   this.width = canvas.width*0.16;
+   this.height = canvas.width*0.04;
+  }
+  draw(){
+    context.fillStyle = "black"; //maybe redundant
+    var cloud = document.getElementById("cloud");
+    context.drawImage(cloud, this.xPos, this.yPos, this.width, this.height);
+  }
+  moveForward(){
+    this.xPos -= runVel*0.25;
+  }
+}

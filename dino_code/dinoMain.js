@@ -11,6 +11,7 @@ document.addEventListener("mousedown", getCursorPosition);
 window.requestAnimationFrame(drawAll);
 
 var obstaclesChoices = ["singleSmallCactus", "doubleSmallCactus", "tripleSmallCactus", "singleLargeCactus", "doubleLargeCactus", "tripleLargeCactus", "lowFlyer", "midFlyer", "highFlyer"];
+var clouds = [];
 var dinoHeight = canvas.height*0.65;
 var dinoVel = 0;
 var isJumping = false;
@@ -47,7 +48,7 @@ function drawAll(){
     if (backgroundTwoPos <= -2400){
       backgroundTwoPos = 2400;
     }
-
+    manageCloud();
     context.fillStyle = "black";
     var dinoIdle = document.getElementById("dinoIdle");
     if (isJumping){
@@ -69,7 +70,7 @@ function drawAll(){
         framesInBetween ++;
       }
     }
-    jump();
+    jump(); //misnomer
     distanceRan += runVel;
     runVel += 0.001;
     displayScore();
@@ -91,6 +92,9 @@ function drawAll(){
     var background = document.getElementById("background");
     context.drawImage(background, backgroundOnePos, canvas.width*0.4, 2400, canvas.width*0.02);
     context.drawImage(background, backgroundTwoPos, canvas.width*0.4, 2400, canvas.width*0.02);
+    for (var i = 0; i < clouds.length; i++) { //make method
+      clouds[i].draw();
+    }
     var dinoDead = document.getElementById("dinoDead");
     context.drawImage(dinoDead, canvas.width*0.1, dinoHeight, canvas.width*0.12, canvas.width*0.12);
     for (var i = 0; i < cacti.length; i++) {
@@ -108,6 +112,7 @@ function drawAll(){
     if(score > highScore){
       highScore = score;
     }
+
     if (resetCheck){
       reset();
     }
@@ -117,6 +122,22 @@ function drawAll(){
     gameOverCheck = true;
   }
   window.requestAnimationFrame(drawAll);
+}
+
+function manageCloud(){
+  var probability = Math.random();
+  if (probability <= 0.01){
+    clouds.push(new cloud());
+  }
+  for (var i = 0; i < clouds.length; i++) {
+    if (clouds[i].xPos < canvas.width*(-0.16)){
+      clouds.shift();
+    }
+    else{
+      clouds[i].draw();
+      clouds[i].moveForward();
+    }
+  }
 }
 
 function reset(){
@@ -134,6 +155,7 @@ function reset(){
   score = 0;
   runVel = 15;
   dinoHeight = canvas.height*0.65;
+  clouds = [];
 }
 
 function checkCollisions(){
