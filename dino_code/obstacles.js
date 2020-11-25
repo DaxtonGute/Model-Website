@@ -89,3 +89,60 @@ class tripleLargeCactus extends obstacle{ //how to import
     context.drawImage(tripleLargeCactus, this.xPos, this.yPos, this.width, this.height);
   }
 }
+
+
+class flyer extends obstacle{
+  constructor(xPos, yPos) {
+   super(xPos);
+   this.width = canvas.width*0.12;
+   this.height = canvas.width*0.12;
+   this.multiplyer =  Math.random()*0.5 + 0.75;
+   this.animated = true;
+  }
+  draw(){
+    console.log('help');
+    context.fillStyle = "black"; //maybe redundant
+    var flyerOne = document.getElementById("flyerOne");
+    var flyerTwo = document.getElementById("flyerTwo");
+    if((this.framesSince%16) < 8){
+      console.log('help2');
+      context.drawImage(flyerOne, this.xPos, this.yPos, this.width, this.height);
+    }else{
+      console.log('help3');
+      context.drawImage(flyerTwo, this.xPos, this.yPos, this.width, this.height);
+    }
+    if(this.animated){
+      this.framesSince ++;
+    }
+  }
+  toggleFlightOff(){
+    this.animated = false;
+  }
+  calculateFlyerOffset(){
+    var offset = -(this.multiplyer - 1)*canvas.width;
+    return offset;
+  }
+  moveForward(){
+    this.xPos -= runVel*this.multiplyer;
+  }
+}
+
+
+
+class lowFlyer extends flyer{ //how to import
+  constructor(xPos) {
+   super(xPos, canvas.height*0.65 + 25);
+  }
+}
+
+class midFlyer extends flyer{ //how to import
+  constructor(xPos) {
+   super(xPos, canvas.height*0.65);
+  }
+}
+
+class highFlyer extends flyer{ //how to import
+  constructor(xPos) {
+   super(xPos, canvas.height*0.65 - 25);
+  }
+}

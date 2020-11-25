@@ -10,7 +10,8 @@ document.addEventListener("keydown", myKeyDown);
 document.addEventListener("mousedown", getCursorPosition);
 window.requestAnimationFrame(drawAll);
 
-var obstaclesChoices = ["singleSmallCactus", "doubleSmallCactus", "tripleSmallCactus", "singleLargeCactus", "doubleLargeCactus", "tripleLargeCactus"];
+//var obstaclesChoices = ["singleSmallCactus", "doubleSmallCactus", "tripleSmallCactus", "singleLargeCactus", "doubleLargeCactus", "tripleLargeCactus"];
+var obstaclesChoices = ["lowFlyer"];
 var dinoHeight = canvas.height*0.65;
 var dinoVel = 0;
 var isJumping = false;
@@ -55,14 +56,14 @@ function drawAll(){
     }else{
       if (runningOne){
         context.drawImage(dinoRunningOne, canvas.width*0.1, dinoHeight, canvas.width*0.12, canvas.width*0.12);
-        if(framesInBetween > 5){
+        if(framesInBetween > 4){
           runningOne = false;
           framesInBetween = 0;
         }
         framesInBetween ++;
       }else{
         context.drawImage(dinoRunningTwo, canvas.width*0.1, dinoHeight, canvas.width*0.12, canvas.width*0.12);
-        if(framesInBetween > 5){
+        if(framesInBetween > 4){
           runningOne = true;
           framesInBetween = 0;
         }
@@ -80,6 +81,9 @@ function drawAll(){
         var offset =(Math.random()-0.5)*canvas.width*(0.5)
         cacti[i] = spawnRandomObstacle(cactiOffset[i], offset);
         cactiOffset[i] = offset;
+        if(cacti[i] instanceof flyer){
+          cactiOffset[i] += cacti[i].calculateFlyerOffset();
+        }
       }
     }
     resetCheck = false;
@@ -92,6 +96,9 @@ function drawAll(){
     context.drawImage(dinoDead, canvas.width*0.1, dinoHeight, canvas.width*0.12, canvas.width*0.12);
     for (var i = 0; i < cacti.length; i++) {
       cacti[i].draw();
+      if(cacti[i] instanceof flyer){
+        cacti[i].toggleFlightOff();
+      }
     }
     displayScore();
 
@@ -214,6 +221,8 @@ function spawnRandomObstacle(previousOffset, offset){ //do it based off score
     return new doubleLargeCactus(canvas.width*(4.5) - previousOffset + offset);
   }else if (choice == "tripleLargeCactus") {
     return new tripleLargeCactus(canvas.width*(4.5) - previousOffset + offset);
+  }else if (choice == "lowFlyer") {
+    return new lowFlyer(canvas.width*(4.5) - previousOffset + offset);
   }else{
     console.log("whoops");
   }
