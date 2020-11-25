@@ -10,8 +10,7 @@ document.addEventListener("keydown", myKeyDown);
 document.addEventListener("mousedown", getCursorPosition);
 window.requestAnimationFrame(drawAll);
 
-//var obstaclesChoices = ["singleSmallCactus", "doubleSmallCactus", "tripleSmallCactus", "singleLargeCactus", "doubleLargeCactus", "tripleLargeCactus"];
-var obstaclesChoices = ["lowFlyer"];
+var obstaclesChoices = ["singleSmallCactus", "doubleSmallCactus", "tripleSmallCactus", "singleLargeCactus", "doubleLargeCactus", "tripleLargeCactus", "lowFlyer", "midFlyer", "highFlyer"];
 var dinoHeight = canvas.height*0.65;
 var dinoVel = 0;
 var isJumping = false;
@@ -143,11 +142,15 @@ function checkCollisions(){
     if (cacti[i].xPos <= canvas.width*0.14 && canvas.width*0.14 <= cacti[i].xPos + cacti[i].width){ //senses if back side of dinosaur
       if (cacti[i].yPos <= dinoHeight + canvas.width*0.08  && dinoHeight + canvas.width*0.08 <= cacti[i].yPos + cacti[i].height){ //senses bottom side of dinosaur
         failed = true;
+      }else if (cacti[i].yPos <= dinoHeight + canvas.width*0.02 && dinoHeight + canvas.width*0.02 <= cacti[i].yPos + cacti[i].height){ //senses top side of dinosaur
+        failed = true;
       }
     }
 
     if (cacti[i].xPos <= canvas.width*0.18 && canvas.width*0.18 <= cacti[i].xPos + cacti[i].width){ //senses if front side of dinosaur
       if (cacti[i].yPos <= dinoHeight + canvas.width*0.08  && dinoHeight + canvas.width*0.08 <= cacti[i].yPos + cacti[i].height){ //senses bottom side of dinosaur
+        failed = true;
+      }else if (cacti[i].yPos <= dinoHeight + canvas.width*0.02 && dinoHeight + canvas.width*0.02 <= cacti[i].yPos + cacti[i].height){ //senses top side of dinosaur
         failed = true;
       }
     }
@@ -223,6 +226,10 @@ function spawnRandomObstacle(previousOffset, offset){ //do it based off score
     return new tripleLargeCactus(canvas.width*(4.5) - previousOffset + offset);
   }else if (choice == "lowFlyer") {
     return new lowFlyer(canvas.width*(4.5) - previousOffset + offset);
+  }else if (choice == "midFlyer") {
+    return new midFlyer(canvas.width*(4.5) - previousOffset + offset);
+  }else if (choice == "highFlyer") {
+    return new highFlyer(canvas.width*(4.5) - previousOffset + offset);
   }else{
     console.log("whoops");
   }

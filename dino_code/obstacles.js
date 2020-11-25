@@ -94,10 +94,12 @@ class tripleLargeCactus extends obstacle{ //how to import
 class flyer extends obstacle{
   constructor(xPos, yPos) {
    super(xPos);
+   this.yPos = yPos;
    this.width = canvas.width*0.12;
    this.height = canvas.width*0.12;
-   this.multiplyer =  Math.random()*0.5 + 0.75;
+   this.multiplyer =  Math.random()*0.2 + 0.9;
    this.animated = true;
+   this.framesSince = 0;
   }
   draw(){
     console.log('help');
@@ -119,7 +121,7 @@ class flyer extends obstacle{
     this.animated = false;
   }
   calculateFlyerOffset(){
-    var offset = -(this.multiplyer - 1)*canvas.width;
+    var offset = -(5 - (5/this.multiplyer))*canvas.width;
     return offset;
   }
   moveForward(){
@@ -137,12 +139,12 @@ class lowFlyer extends flyer{ //how to import
 
 class midFlyer extends flyer{ //how to import
   constructor(xPos) {
-   super(xPos, canvas.height*0.65);
+   super(xPos, canvas.height*0.65 - 100);
   }
 }
 
 class highFlyer extends flyer{ //how to import
   constructor(xPos) {
-   super(xPos, canvas.height*0.65 - 25);
+   super(xPos, canvas.height*0.65 - 225);
   }
 }
