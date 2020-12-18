@@ -2,7 +2,7 @@ canvas = document.getElementById("dinoGame");
 windowWidth = window.innerWidth;
 windowHeight = window.innerHeight;
 canvas.width = windowWidth - 25;
-canvas.height = windowHeight - 25;
+canvas.height = windowHeight - 130;
 canvas.style.border = "1px solid black";
 
 context = canvas.getContext("2d");
@@ -19,7 +19,7 @@ var isJumping = false;
 var isDucking = false;
 var distanceRan = 0;
 var score = 0;
-var highScore = 0;
+var highScore = 0; //try using local memory for that
 
 var gravity = 2;
 var jumpVel = 35;
@@ -41,8 +41,8 @@ function drawAll(){
   if(gameOverCheck == false){
     //ground
     var background = document.getElementById("background");
-    context.drawImage(background, backgroundOnePos, canvas.width*0.4, 2400, canvas.width*0.02);
-    context.drawImage(background, backgroundTwoPos, canvas.width*0.4, 2400, canvas.width*0.02);
+    context.drawImage(background, backgroundOnePos, canvas.width*0.3, 2400, canvas.width*0.02);
+    context.drawImage(background, backgroundTwoPos, canvas.width*0.3, 2400, canvas.width*0.02);
     backgroundOnePos -= runVel;
     backgroundTwoPos -= runVel;
     if (backgroundOnePos <= -2400){
@@ -109,8 +109,8 @@ function drawAll(){
   }else{
     //redraw everything but don't move
     var background = document.getElementById("background");
-    context.drawImage(background, backgroundOnePos, canvas.width*0.4, 2400, canvas.width*0.02);
-    context.drawImage(background, backgroundTwoPos, canvas.width*0.4, 2400, canvas.width*0.02);
+    context.drawImage(background, backgroundOnePos, canvas.width*0.3, 2400, canvas.width*0.02);
+    context.drawImage(background, backgroundTwoPos, canvas.width*0.3, 2400, canvas.width*0.02);
     for (var i = 0; i < clouds.length; i++) { //make method
       clouds[i].draw();
     }

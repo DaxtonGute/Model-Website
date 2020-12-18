@@ -149,7 +149,7 @@ class highFlyer extends flyer{ //how to import
 class cloud{
   constructor(xPos) {
    this.xPos = canvas.width;
-   this.yPos = Math.random()*canvas.width*0.36;
+   this.yPos = Math.random()*canvas.width*0.26;
    this.width = canvas.width*0.16;
    this.height = canvas.width*0.04;
   }
