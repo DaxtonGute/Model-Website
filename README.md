@@ -1,6 +1,6 @@
 # Pixel Arcade
 For the most recent update (and my biggest game to date), please see commit fa91b04.
-## There are four games
+## There are five games
 1. Typing Tutor
 2. Color Spinner
 3. CPS Tester
